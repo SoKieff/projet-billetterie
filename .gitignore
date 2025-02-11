@@ -1,0 +1,10 @@
+# Default ignored files
+/shelf/
+*.iml
+/server/target/
+/client/node_modules/
+/client/dist/
+/client/TESTS-*.xml
+/client/.angular/
+.idea/
+.vscode/
