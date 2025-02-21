@@ -1,1 +1,65 @@
-<p>header works!</p>
+<header class="bg-gradient-to-r from-pink-300 to-pink-400 p-4 shadow-lg">
+  <div class="max-w-[2000px] mx-auto">
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex justify-between items-center">
+      <div class="flex items-center">
+        <span class="text-yellow-400 text-2xl pl-0">✨</span>
+        <h1 class="font-sansita text-white text-4xl font-bold ml-2">Festival Nation Sound</h1>
+      </div>
+      <nav class="pr-4">
+        <ul class="flex space-x-6">
+          <li><a routerLink="/visiteur/home" routerLinkActive="active" class="text-white hover:text-pink-100 transition-colors duration-200 font-sansita">Accueil</a></li>
+          <li><a routerLink="/visiteur/programme" routerLinkActive="active" class="text-white hover:text-pink-100 transition-colors duration-200 font-sansita">Programme</a></li>
+          <li><a routerLink="/visiteur/map" routerLinkActive="active" class="text-white hover:text-pink-100 transition-colors duration-200 font-sansita">Map</a></li>
+          <li><a routerLink="/visiteur/faq" routerLinkActive="active" class="text-white hover:text-pink-100 transition-colors duration-200 font-sansita">FAQ</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="md:hidden">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center">
+          <span class="text-yellow-400 text-xl">✨</span>
+          <h1 class="font-sansita text-white text-2xl font-bold ml-2">Festival Nation Sound</h1>
+        </div>
+        <button
+          (click)="toggleMenu()"
+          class="text-white p-2 hover:bg-pink-300 rounded transition-colors"
+          aria-label="Toggle menu"
+          [attr.aria-expanded]="isMenuOpen"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Dropdown -->
+      <div
+        class="transform transition-all duration-300 ease-in-out"
+        [ngClass]="{'hidden': !isMenuOpen, 'block': isMenuOpen}"
+      >
+        <nav class="mt-4">
+          <ul class="flex flex-col space-y-4">
+            <li><a routerLink="/visiteur/home" routerLinkActive="active" class="text-white hover:text-pink-100 transition-colors duration-200 font-sansita">Accueil</a></li>
+            <li><a routerLink="/visiteur/programme" routerLinkActive="active" class="text-white hover:text-pink-100 transition-colors duration-200 font-sansita">Programme</a></li>
+            <li><a routerLink="/visiteur/map" routerLinkActive="active" class="text-white hover:text-pink-100 transition-colors duration-200 font-sansita">Map</a></li>
+            <li><a routerLink="/visiteur/faq" routerLinkActive="active" class="text-white hover:text-pink-100 transition-colors duration-200 font-sansita">FAQ</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>

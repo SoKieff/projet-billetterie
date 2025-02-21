@@ -39,6 +39,7 @@
             "styles": [
               "src/styles.css"
             ],
+
             "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,
@@ -107,5 +108,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "70b5d22f-b27b-4674-8861-31dd3fa5361e"
   }
 }

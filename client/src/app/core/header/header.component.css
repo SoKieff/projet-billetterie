@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Sansita:wght@400;700&display=swap');
+
+/* Styles spécifiques qui ne peuvent pas être gérés par Tailwind */
+.font-sansita {
+  font-family: 'Sansita', sans-serif;
+}
+
+/* Styles pour le menu mobile */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+}
