@@ -1,1 +1,79 @@
-<p>home works!</p>
+<div class="min-h-screen bg-pink-50 pt-6 pb-24 font-['Sansita']">
+
+  <section class="max-w-screen-xl mx-auto px-4">
+    <h2 class="text-3xl font-bold text-pink-600 mb-8 text-center">Artistes et Programmation</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div *ngFor="let artist of artists" class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
+        <img [src]="artist.image" [alt]="artist.name" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+          <h3 class="text-white text-xl font-bold">{{artist.name}}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bouton Programme -->
+    <div class="text-center mb-16">
+      <a routerLink="/visiteur/programme" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full transition-colors shadow-lg hover:shadow-xl">
+        Voir le programme complet
+      </a>
+    </div>
+  </section>
+
+  <!-- Section Informations Pratiques -->
+  <section class="max-w-screen-xl mx-auto px-4">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+      <h2 class="text-3xl font-bold text-pink-600 mb-8 text-center">Informations Pratiques</h2>
+
+      <div class="max-w-2xl mx-auto space-y-4">
+        <!-- Lieu -->
+        <div class="flex items-center p-6 bg-pink-50 rounded-lg hover:shadow-lg transition-shadow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-pink-500 flex-shrink-0" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"/>
+            <circle cx="12" cy="9" r="2.5"
+                    stroke="currentColor"
+                    stroke-width="2"/>
+          </svg>
+          <div class="ml-6">
+            <h3 class="text-xl font-bold text-gray-800">Lieu</h3>
+            <p class="text-gray-600">Paris</p>
+          </div>
+        </div>
+
+        <!-- Accès -->
+        <div class="flex items-center p-6 bg-pink-50 rounded-lg hover:shadow-lg transition-shadow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-pink-500 flex-shrink-0" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"/>
+            <circle cx="12" cy="9" r="2.5"
+                    stroke="currentColor"
+                    stroke-width="2"/>
+          </svg>
+          <div class="ml-6">
+            <h3 class="text-xl font-bold text-gray-800">Accès</h3>
+            <p class="text-gray-600">Métro, Bus</p>
+          </div>
+        </div>
+
+        <!-- Sur place -->
+        <div class="flex items-center p-6 bg-pink-50 rounded-lg hover:shadow-lg transition-shadow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-pink-500 flex-shrink-0" viewBox="0 0 24 24" fill="none">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"/>
+          </svg>
+          <div class="ml-6">
+            <h3 class="text-xl font-bold text-gray-800">Sur place</h3>
+            <p class="text-gray-600">Foodtrucks, stands, animations</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

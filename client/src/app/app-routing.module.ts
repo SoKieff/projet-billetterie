@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {PageNotFoundComponent} from "./core/page-not-found/page-not-found.component";
+import { PageNotFoundComponent } from "./core/page-not-found/page-not-found.component";
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'visiteur',
+    pathMatch: 'full'
+  },
   {
     path: 'visiteur',
     loadChildren: () => import('./visiteur/visiteur.module').then(m => m.VisiteurModule)
