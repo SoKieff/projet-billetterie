@@ -21,19 +21,19 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   artists = [
     {
-      name: 'Neon Sakura',
+      name: 'Neon Samurai',
       image: '/assets/images/groupe1.jpg'
     },
     {
-      name: 'Dream Paradise',
+      name: 'Quantum Beats',
       image: '/assets/images/groupe2.jpg'
     },
     {
-      name: 'Starlight Fever',
+      name: 'Tokyo Pulse',
       image: '/assets/images/groupe3.jpg'
     },
     {
-      name: 'Miracle Spark',
+      name: 'DJ Sets',
       image: '/assets/images/groupe4.jpg'
     }
   ];

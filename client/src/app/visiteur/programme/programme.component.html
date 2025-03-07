@@ -1,1 +1,322 @@
-<p>programme works!</p>
+<!-- client/src/app/visiteur/programme/programme.component.html -->
+
+<div class="w-full bg-gradient-to-b from-pink-50 to-purple-50 p-4 rounded-lg shadow-lg font-sansita">
+  <h1 class="text-4xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Festival J-Pop : Sakura Nights</h1>
+
+  <!-- Barre de recherche -->
+  <div class="mb-6 relative">
+    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+      </svg>
+    </div>
+    <input
+      type="text"
+      placeholder="Rechercher un artiste ou une activité..."
+      class="pl-10 w-full p-2 border border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+      [value]="filter.search"
+      (input)="filter.search = $any($event.target).value; applyFilters()"
+    />
+  </div>
+
+  <!-- Filtres -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Jour</label>
+      <select
+        name="day"
+        [value]="filter.day"
+        (change)="handleFilterChange($event)"
+        class="w-full p-2 border border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+      >
+        <option value="all">Tous les jours</option>
+        <option value="samedi">Samedi</option>
+        <option value="dimanche">Dimanche</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Scène</label>
+      <select
+        name="scene"
+        [value]="filter.scene"
+        (change)="handleFilterChange($event)"
+        class="w-full p-2 border border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+      >
+        <option value="all">Toutes les scènes</option>
+        <option *ngFor="let scene of scenes" [value]="scene">{{ scene }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Heure de début</label>
+      <select
+        name="startTime"
+        [value]="filter.startTime"
+        (change)="handleFilterChange($event)"
+        class="w-full p-2 border border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+      >
+        <option value="all">Toutes les heures</option>
+        <option *ngFor="let time of timeSlots" [value]="time">{{ time }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Type d'activité</label>
+      <select
+        name="category"
+        [value]="filter.category"
+        (change)="handleFilterChange($event)"
+        class="w-full p-2 border border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+      >
+        <option value="all">Toutes les activités</option>
+        <option *ngFor="let category of categories" [value]="category">
+          {{ category.charAt(0).toUpperCase() + category.slice(1) }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Bouton réinitialiser -->
+  <div class="flex justify-center mb-6">
+    <button
+      (click)="resetFilters()"
+      class="bg-gradient-to-r from-pink-400 to-purple-400 text-white px-4 py-2 rounded-lg hover:from-pink-500 hover:to-purple-500 transition-all duration-300 shadow-md"
+    >
+      Réinitialiser les filtres
+    </button>
+  </div>
+
+  <!-- Tableau des résultats -->
+  <div class="overflow-x-auto">
+    <table class="w-full border-collapse">
+      <thead>
+      <tr class="bg-gradient-to-r from-pink-400 to-purple-400 text-white">
+        <th class="p-3 text-left rounded-tl-lg">Jour</th>
+        <th class="p-3 text-left">Horaire</th>
+        <th class="p-3 text-left">Nom</th>
+        <th class="p-3 text-left hidden md:table-cell">Description</th>
+        <th class="p-3 text-left">Scène</th>
+        <th class="p-3 text-left rounded-tr-lg">Type</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngIf="filteredEvents.length > 0; else noEvents">
+        <tr
+          *ngFor="let event of filteredEvents; let i = index"
+          class="hover:bg-pink-100 transition-colors duration-150"
+          [ngClass]="{'bg-white': i % 2 === 0, 'bg-pink-50': i % 2 !== 0}"
+        >
+          <td class="p-3 border-b border-pink-200 capitalize">{{ event.day }}</td>
+          <td class="p-3 border-b border-pink-200">{{ event.startTime }} - {{ event.endTime }}</td>
+          <td class="p-3 border-b border-pink-200">
+              <span
+                class="font-bold cursor-pointer hover:text-pink-600 transition-colors duration-200"
+                (click)="openEventDetail(event)"
+              >
+                {{ event.name }}
+              </span>
+            <span *ngIf="event.longDescription" class="ml-2 text-xs text-pink-500">(+ d'infos)</span>
+          </td>
+          <td class="p-3 border-b border-pink-200 hidden md:table-cell">{{ event.description }}</td>
+          <td class="p-3 border-b border-pink-200">
+              <span [ngClass]="[getSceneColor(event.scene), 'px-2 py-1 rounded-full text-sm']">
+                {{ event.scene }}
+              </span>
+          </td>
+          <td class="p-3 border-b border-pink-200">
+              <span class="flex items-center">
+                <span class="mr-2">{{ getCategoryIcon(event.category) }}</span>
+                <span class="capitalize hidden md:inline">{{ event.category }}</span>
+              </span>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #noEvents>
+        <tr>
+          <td colspan="6" class="p-6 text-center text-gray-500">
+            Aucun événement ne correspond à vos critères de recherche.
+          </td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Informations pratiques -->
+  <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text">Informations Pratiques</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div *ngFor="let info of infoPratiques">
+        <h3 class="text-lg font-bold mb-2 text-pink-600">{{ info.title }}</h3>
+        <ul class="space-y-1">
+          <li *ngFor="let item of info.items">• {{ item }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="text-center mt-4 text-sm italic text-gray-600">
+      *Programme sous réserve de modifications*
+    </p>
+  </div>
+</div>
+
+<!-- Modal de détail d'événement -->
+<div
+  *ngIf="isDetailModalOpen"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 transition-opacity duration-300"
+  [class.opacity-0]="!isDetailModalOpen"
+  [class.opacity-100]="isDetailModalOpen"
+>
+  <div
+    class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto transform transition-transform duration-300 font-sansita"
+    [class.scale-95]="!isDetailModalOpen"
+    [class.scale-100]="isDetailModalOpen"
+  >
+    <!-- En-tête de la modal -->
+    <div class="sticky top-0 z-10 bg-gradient-to-r from-pink-400 to-purple-400 p-4 rounded-t-lg flex justify-between items-center">
+      <h2 class="text-white text-2xl font-bold">{{ selectedEvent?.name }}</h2>
+      <button
+        (click)="closeEventDetail()"
+        class="text-white p-1 hover:bg-white hover:bg-opacity-20 rounded-full transition"
+        aria-label="Fermer"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Corps de la modal -->
+    <div class="p-6">
+      <!-- Informations principales -->
+      <div class="flex flex-wrap mb-6">
+        <div class="w-full md:w-2/3 pr-0 md:pr-6">
+          <div class="flex flex-wrap mb-4">
+            <div class="mr-4 mb-2">
+              <span class="text-gray-600 text-sm">Jour</span>
+              <p class="font-medium capitalize">{{ selectedEvent?.day }}</p>
+            </div>
+            <div class="mr-4 mb-2">
+              <span class="text-gray-600 text-sm">Horaire</span>
+              <p class="font-medium">{{ selectedEvent?.startTime }} - {{ selectedEvent?.endTime }}</p>
+            </div>
+            <div class="mr-4 mb-2">
+              <span class="text-gray-600 text-sm">Scène</span>
+              <p>
+                <span [ngClass]="[selectedEvent ? getSceneColor(selectedEvent.scene || '') : '', 'px-2 py-1 rounded-full text-sm inline-block mt-1']">
+                {{ selectedEvent?.scene }}
+                </span>
+              </p>
+            </div>
+            <div class="mb-2">
+              <span class="text-gray-600 text-sm">Type</span>
+              <p class="font-medium flex items-center mt-1">
+                <span class="mr-2">{{ selectedEvent ? getCategoryIcon(selectedEvent.category || '') : '' }}</span>
+                <span class="capitalize">{{ selectedEvent?.category }}</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Description courte -->
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-pink-600 mb-2">Description</h3>
+            <p class="text-gray-700">{{ selectedEvent?.description }}</p>
+          </div>
+
+          <!-- Description longue si disponible -->
+          <div *ngIf="selectedEvent?.longDescription" class="mb-6">
+            <h3 class="text-lg font-semibold text-pink-600 mb-2">À propos</h3>
+            <div class="text-gray-700 space-y-2">
+              <p>{{ selectedEvent?.longDescription }}</p>
+            </div>
+          </div>
+
+          <!-- Setlist si disponible -->
+          <ng-container *ngIf="selectedEvent?.setlist as setlist">
+            <div *ngIf="setlist.length > 0" class="mb-6">
+              <h3 class="text-lg font-semibold text-pink-600 mb-2">Setlist</h3>
+              <ul class="list-disc pl-5 space-y-1">
+                <li *ngFor="let song of setlist" class="text-gray-700">
+                  {{ song }}
+                </li>
+              </ul>
+            </div>
+          </ng-container>
+
+        <!-- Image de l'artiste si disponible -->
+        <div class="w-full md:w-1/3 mt-4 md:mt-0">
+          <div *ngIf="selectedEvent?.artistImage; else placeholderImage" class="rounded-lg overflow-hidden shadow-md">
+            <img [src]="selectedEvent?.artistImage" [alt]="selectedEvent?.name" class="w-full h-auto" />
+          </div>
+          <ng-template #placeholderImage>
+            <div class="rounded-lg overflow-hidden shadow-md bg-gradient-to-br from-pink-200 to-purple-200 h-64 flex items-center justify-center">
+              <div class="text-center p-4">
+                <span class="text-5xl block mb-2">{{ selectedEvent ? getCategoryIcon(selectedEvent.category || '') : '✨' }}</span>
+                <span class="text-pink-600 font-medium">{{ selectedEvent?.name }}</span>
+              </div>
+            </div>
+          </ng-template>
+
+          <!-- Liens sociaux si disponibles -->
+          <ng-container *ngIf="selectedEvent?.socialLinks as socialLinks">
+            <div *ngIf="socialLinks.length > 0" class="mt-4">
+              <h3 class="text-lg font-semibold text-pink-600 mb-2">Suivre</h3>
+              <div class="flex flex-wrap gap-2">
+                <a
+                  *ngFor="let link of socialLinks"
+                  [href]="link.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-3 py-1 bg-gradient-to-r from-pink-400 to-purple-400 text-white rounded-full text-sm hover:from-pink-500 hover:to-purple-500 transition-all duration-200 flex items-center"
+                >
+                  {{ link.platform }}
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Vidéo si disponible -->
+          <div *ngIf="selectedEvent?.videoUrl" class="mt-4">
+            <h3 class="text-lg font-semibold text-pink-600 mb-2">Vidéo</h3>
+            <a
+              [href]="selectedEvent?.videoUrl || '#'"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block p-3 bg-gradient-to-r from-pink-100 to-purple-100 rounded-lg text-center hover:from-pink-200 hover:to-purple-200 transition-colors duration-200"
+            >
+              <span class="flex items-center justify-center text-pink-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Regarder la vidéo
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pied de la modal -->
+    <div class="bg-gray-50 p-4 rounded-b-lg flex justify-between items-center">
+      <span class="text-sm text-gray-500">
+        <span [ngClass]="[selectedEvent ? getSceneColor(selectedEvent.scene || '') : '', 'px-2 py-1 rounded-full text-xs mr-2']">
+        {{ selectedEvent?.scene }}
+        </span>
+        {{ selectedEvent?.day }} · {{ selectedEvent?.startTime }} - {{ selectedEvent?.endTime }}
+      </span>
+      <button
+        (click)="closeEventDetail()"
+        class="px-4 py-2 bg-gradient-to-r from-pink-400 to-purple-400 text-white rounded-lg hover:from-pink-500 hover:to-purple-500 transition-all duration-200"
+      >
+        Fermer
+      </button>
+    </div>
+  </div>
+</div>
+</div>
