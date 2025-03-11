@@ -1,0 +1,156 @@
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 85vh;
+  background-image: linear-gradient(to bottom, rgb(255, 242, 253), rgb(250, 232, 255));
+  font-family: 'Sansita', sans-serif;
+}
+
+.not-found-content {
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(219, 39, 119, 0.15);
+  max-width: 600px;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.error-code {
+  font-size: 8rem;
+  font-weight: bold;
+  margin: 0;
+  background: linear-gradient(to right, rgb(255, 0, 128), rgb(147, 51, 234));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+}
+
+.error-title {
+  font-size: 3rem;
+  color: rgb(219, 39, 119);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.error-message {
+  font-size: 1.2rem;
+  color: rgb(88, 28, 69);
+  margin-bottom: 2rem;
+}
+
+.music-notes {
+  margin: 2rem 0;
+  position: relative;
+  height: 60px;
+}
+
+.note {
+  position: absolute;
+  color: rgb(219, 39, 119);
+  font-size: 2rem;
+  opacity: 0;
+  animation: float 3s infinite;
+}
+
+.note:nth-child(1) {
+  left: 30%;
+  animation-delay: 0s;
+}
+
+.note:nth-child(2) {
+  left: 40%;
+  animation-delay: 0.5s;
+}
+
+.note:nth-child(3) {
+  left: 50%;
+  animation-delay: 1s;
+}
+
+.note:nth-child(4) {
+  left: 60%;
+  animation-delay: 1.5s;
+}
+
+.note:nth-child(5) {
+  left: 70%;
+  animation-delay: 2s;
+}
+
+.suggestion {
+  font-size: 1.1rem;
+  color: rgb(88, 28, 69);
+  margin-bottom: 1.5rem;
+}
+
+.return-button {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(to right, rgb(255, 201, 237), rgb(255, 148, 225));
+  color: rgb(88, 28, 69);
+  border: none;
+  border-radius: 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(219, 39, 119, 0.1);
+}
+
+.return-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 10px rgba(219, 39, 119, 0.2);
+  background: linear-gradient(to right, rgb(255, 148, 225), rgb(219, 39, 119));
+  color: white;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .error-code {
+    font-size: 5rem;
+  }
+
+  .error-title {
+    font-size: 2rem;
+  }
+
+  .error-message {
+    font-size: 1rem;
+  }
+
+  .music-notes {
+    height: 40px;
+  }
+
+  .note {
+    font-size: 1.5rem;
+  }
+}
