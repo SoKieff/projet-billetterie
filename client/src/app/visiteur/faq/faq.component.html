@@ -1,1 +1,83 @@
-<p>faq works!</p>
+<div class="w-full bg-gradient-to-b from-pink-50 to-purple-50 p-4 rounded-lg shadow-lg font-sansita">
+  <h1 class="text-4xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Foire aux questions</h1>
+
+  <div class="max-w-3xl mx-auto">
+    <!-- Filtres/Catégories de questions -->
+    <div class="flex flex-wrap gap-2 justify-center mb-6">
+      <button
+        *ngFor="let category of categories"
+        (click)="filterByCategory(category)"
+        [ngClass]="{
+          'filter-active': selectedCategory === category,
+          'filter-inactive': selectedCategory !== category
+        }"
+        class="filter-btn btn btn-sm border-none">
+        {{ category }}
+      </button>
+      <button
+        (click)="filterByCategory('Toutes')"
+        [ngClass]="{
+          'filter-active': selectedCategory === 'Toutes',
+          'filter-inactive': selectedCategory !== 'Toutes'
+        }"
+        class="filter-btn btn btn-sm border-none">
+        Toutes
+      </button>
+    </div>
+
+    <!-- Liste des questions -->
+    <div class="space-y-4 bg-white bg-opacity-80 p-6 rounded-lg shadow-md">
+      <div *ngFor="let item of filteredFaqItems" class="faq-item collapse collapse-arrow">
+        <input type="checkbox" />
+        <div class="collapse-title text-lg font-medium text-pink-900">
+          {{ item.question }}
+        </div>
+        <div class="collapse-content bg-white bg-opacity-70">
+          <p [innerHTML]="item.answer" class="text-pink-950"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Partenaires -->
+  <div class="w-full bg-gradient-to-b from-pink-50 to-purple-50 p-4 rounded-lg shadow-lg font-sansita">
+    <h2 class="text-4xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Nos Partenaires</h2>
+
+    <!-- Catégories de partenaires -->
+    <div class="mb-12">
+      <h3 class="text-xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Partenaires Officiels</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
+        <div *ngFor="let partner of officialPartners" class="partner-logo">
+          <div class="bg-white bg-opacity-90 rounded-lg p-4 h-24 w-36 flex items-center justify-center shadow-md transition-transform hover:scale-105">
+            <img [src]="'/assets/images/logos/' + partner.logo" [alt]="partner.name" class="max-h-16 max-w-full">
+          </div>
+          <p class="text-center text-pink-400 mt-2 text-sm">{{partner.name}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-12">
+      <h3 class="text-xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Partenaires Médias</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
+        <div *ngFor="let partner of mediaPartners" class="partner-logo">
+          <div class="bg-white bg-opacity-90 rounded-lg p-4 h-24 w-36 flex items-center justify-center shadow-md transition-transform hover:scale-105">
+            <img [src]="'/assets/images/logos/' + partner.logo" [alt]="partner.name" class="max-h-16 max-w-full">
+          </div>
+          <p class="text-center text-pink-400 mt-2 text-sm">{{partner.name}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="text-xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Partenaires Locaux</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
+        <div *ngFor="let partner of localPartners" class="partner-logo">
+          <div class="bg-pink bg-opacity-90 rounded-lg p-4 h-24 w-36 flex items-center justify-center shadow-md transition-transform hover:scale-105">
+            <img [src]="'/assets/images/logos/' + partner.logo" [alt]="partner.name" class="max-h-16 max-w-full">
+          </div>
+          <p class="text-center text-pink-400 mt-2 text-sm">{{partner.name}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
