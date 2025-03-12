@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
-
+import { VisiteurModule } from './visiteur/visiteur.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './core/header/header.component';
@@ -21,6 +22,8 @@ import {PageNotFoundComponent} from "./core/page-not-found/page-not-found.compon
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    VisiteurModule,
     AppRoutingModule
   ],
   providers: [

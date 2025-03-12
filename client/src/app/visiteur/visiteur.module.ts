@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 import { HomeComponent } from './home/home.component';
 import { ProgrammeComponent } from './programme/programme.component';
 import { MapComponent } from './map/map.component';
@@ -23,6 +25,7 @@ export const visiteurRoutes : Routes = [
   ],
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule.forChild(visiteurRoutes)
   ]
 })
