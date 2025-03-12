@@ -1,5 +1,5 @@
 <!-- Hero Section avec Carrousel -->
-<div class="relative h-[80vh] overflow-hidden">
+<div class="relative h-[80vh] overflow-hidden" xmlns="http://www.w3.org/1999/html">
   <!-- Images -->
   <div class="relative w-full h-full">
     @for (image of carouselImages; track $index) {
@@ -59,11 +59,13 @@
 <div class="min-h-screen bg-pink-50 pt-6 pb-24 font-['Sansita']">
 
   <section class="max-w-screen-xl mx-auto px-4">
-    <h2 class="text-3xl font-bold text-pink-600 mb-8 text-center">Artistes et Programmation</h2>
+    <h2 class="text-4xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Artistes et Programmation</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div *ngFor="let artist of artists" class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
+        <a routerLink="/visiteur/programme">
         <img [src]="artist.image" [alt]="artist.name" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        </a>
         <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
           <h3 class="text-white text-xl font-bold">{{artist.name}}</h3>
         </div>
@@ -81,7 +83,7 @@
   <!-- Section Informations Pratiques -->
   <section class="max-w-screen-xl mx-auto px-4">
     <div class="bg-white rounded-xl shadow-lg p-8">
-      <h2 class="text-3xl font-bold text-pink-600 mb-8 text-center">Informations Pratiques</h2>
+      <h2 class="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text">Informations Pratiques</h2>
 
       <div class="max-w-2xl mx-auto space-y-4">
         <!-- Lieu -->
@@ -96,8 +98,10 @@
                     stroke-width="2"/>
           </svg>
           <div class="ml-6">
+            <a routerLink="/visiteur/map">
             <h3 class="text-xl font-bold text-gray-800">Lieu</h3>
             <p class="text-gray-600">Paris</p>
+            </a>
           </div>
         </div>
 
@@ -113,8 +117,10 @@
                     stroke-width="2"/>
           </svg>
           <div class="ml-6">
+            <a routerLink="/visiteur/faq">
             <h3 class="text-xl font-bold text-gray-800">Accès</h3>
             <p class="text-gray-600">Métro, Bus</p>
+            </a>
           </div>
         </div>
 
@@ -127,8 +133,10 @@
                   stroke-linecap="round"/>
           </svg>
           <div class="ml-6">
+            <a routerLink="/visiteur/faq">
             <h3 class="text-xl font-bold text-gray-800">Sur place</h3>
             <p class="text-gray-600">Foodtrucks, stands, animations</p>
+            </a>
           </div>
         </div>
       </div>

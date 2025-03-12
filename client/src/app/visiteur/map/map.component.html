@@ -38,13 +38,13 @@
     </div>
   </div>
 
-  <!-- Conteneur de la carte -->
-  <div class="map-wrapper">
-    <div id="map" class="map"></div>
+  <!-- Conteneur de la carte avec hauteur augmentée -->
+  <div class="map-wrapper" style="height: 550px; min-height: 550px;">
+    <div id="map" class="map h-full"></div>
 
     <!-- Popup pour les marqueurs (invisible par défaut) -->
     <div id="popup" class="ol-popup">
-      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+      <a href="#" id="popup-closer" class="ol-popup-closer"></a>a>
       <div id="popup-content"></div>
     </div>
   </div>
@@ -60,5 +60,45 @@
     </div>
   </div>
 
+  <!-- Informations pratiques dans le style de la page programme -->
+  <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text">Informations Pratiques</h2>
 
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <h3 class="text-lg font-bold mb-2 text-pink-600">Horaires d'ouverture</h3>
+        <ul class="space-y-1">
+          <li>• Ouverture des portes : 14h30</li>
+          <li>• Début des concerts : 15h30</li>
+          <li>• Fermeture : 02h00</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold mb-2 text-pink-600">Services disponibles</h3>
+        <ul class="space-y-1">
+          <li>• Consigne pour effets personnels (jusqu'à 01h30)</li>
+          <li>• Points d'eau gratuits</li>
+          <li>• Stands de nourriture et boissons</li>
+          <li>• Poste de premiers secours 24h/24</li>
+          <li>• Point information et objets trouvés</li>
+          <li>• Service de navettes nocturnes</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold mb-2 text-pink-600">Règles importantes</h3>
+        <ul class="space-y-1">
+          <li>• Appareils photo autorisés (sans objectif détachable)</li>
+          <li>• Light sticks autorisés</li>
+          <li>• Pas de nourriture ni boissons de l'extérieur</li>
+          <li>• Bracelets phosphorescents fournis pour la sécurité nocturne</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="text-center mt-4 text-sm italic text-gray-600">
+      *Plan sous réserve de modifications*
+    </p>
+  </div>
 </div>
