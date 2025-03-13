@@ -1,21 +1,27 @@
-<div class="flex justify-center items-center min-h-screen bg-gradient-to-b from-pink-50 to-pink-100 font-['Sansita',sans-serif]">
+<div class="flex justify-center items-center min-h-screen bg-gradient-to-b from-pink-50 to-pink-100 font-['Sansita',sans-serif]" role="main">
   <div class="text-center p-8 bg-white/85 rounded-2xl shadow-xl max-w-xl animate-fadeIn">
-    <h1 class="text-8xl font-bold m-0 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent leading-none md:text-9xl">404</h1>
-    <h2 class="text-3xl text-pink-600 mt-0 mb-6 md:text-4xl">Oups...</h2>
+    <h1 class="text-8xl font-bold m-0 bg-gradient-to-r from-pink-600 to-purple-800 bg-clip-text text-transparent leading-none md:text-9xl" id="error-title">
+      <span aria-label="Erreur 404, page non trouvée">404</span>
+    </h1>
+    <h2 class="text-3xl text-pink-800 mt-0 mb-6 md:text-4xl">Oups...</h2>
     <p class="text-lg text-pink-900 mb-8">La page que vous recherchez semble avoir disparu dans les coulisses du festival.</p>
 
-    <div class="relative h-16 my-8">
-      <span class="absolute text-pink-600 text-4xl opacity-0 left-[30%] animate-float1">♪</span>
-      <span class="absolute text-pink-600 text-4xl opacity-0 left-[40%] animate-float2">♫</span>
-      <span class="absolute text-pink-600 text-4xl opacity-0 left-[50%] animate-float3">♬</span>
-      <span class="absolute text-pink-600 text-4xl opacity-0 left-[60%] animate-float4">♩</span>
-      <span class="absolute text-pink-600 text-4xl opacity-0 left-[70%] animate-float5">♪</span>
+    <!-- Animation toujours visible -->
+    <div class="relative h-16 my-8" aria-label="Décoration avec notes de musique animées">
+      <span class="absolute text-pink-800 text-4xl opacity-0 left-[30%] animate-float1" aria-hidden="true">♪</span>
+      <span class="absolute text-pink-800 text-4xl opacity-0 left-[40%] animate-float2" aria-hidden="true">♫</span>
+      <span class="absolute text-pink-800 text-4xl opacity-0 left-[50%] animate-float3" aria-hidden="true">♬</span>
+      <span class="absolute text-pink-800 text-4xl opacity-0 left-[60%] animate-float4" aria-hidden="true">♩</span>
+      <span class="absolute text-pink-800 text-4xl opacity-0 left-[70%] animate-float5" aria-hidden="true">♪</span>
     </div>
 
     <p class="text-lg text-pink-900 mb-6">Pendant ce temps, pourquoi ne pas retourner à l'accueil ?</p>
-    <button routerLink="/" class="btn btn-lg px-6 py-3 bg-gradient-to-r from-pink-200 to-pink-300 text-pink-900 border-none rounded-full text-base font-bold cursor-pointer transition-all duration-300 hover:translate-y-[-3px] hover:shadow-lg hover:bg-gradient-to-r hover:from-pink-300 hover:to-pink-600 hover:text-white">
+
+    <a routerLink="/" class="btn btn-lg px-6 py-3 bg-gradient-to-r from-pink-300 to-pink-400 text-white border-none rounded-full text-base
+    font-bold cursor-pointer transition-all duration-300 hover:translate-y-[-3px] hover:shadow-lg hover:bg-gradient-to-r hover:from-pink-400
+    hover:to-pink-700 hover:text-white focus:outline-2 focus:outline-pink-700 focus:outline-offset-2" aria-label="Retour à la page d'accueil">
       Retour à l'accueil
-    </button>
+    </a>
   </div>
 </div>
 
@@ -73,6 +79,8 @@
     animation: float 3s infinite;
     animation-delay: 2s;
   }
+
+  /* Suppression du code pour désactiver les animations */
 
   /* Responsive adjustments */
   @media (max-width: 640px) {

@@ -26,7 +26,7 @@ export class FaqComponent implements OnInit {
   // Déclaration des partenaires par catégorie
   officialPartners: Partner[] = [
     { name: 'Japan Foundation', logo: 'JapanFoundation.jpg', website: 'https://www.jpf.go.jp' },
-    { name: 'Sony Music Japan', logo: 'SonyMusicJapan.svg', website: 'https://www.sonymusic.co.jp' },
+    { name: 'Sony Music Japan', logo: 'sonyMusic.png', website: 'https://www.sonymusic.co.jp' },
     { name: 'Bandai Namco', logo: 'BandaiNamco.jpg', website: 'https://www.bandainamco.co.jp' },
     { name: 'Uniqlo', logo: 'uniqlo.png', website: 'https://www.uniqlo.com' }
   ];

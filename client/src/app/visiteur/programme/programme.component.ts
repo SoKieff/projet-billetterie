@@ -1,5 +1,3 @@
-// client/src/app/visiteur/programme/programme.component.ts
-
 import { Component, OnInit } from '@angular/core';
 
 interface FestivalEvent {

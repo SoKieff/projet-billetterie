@@ -1,97 +1,409 @@
-<div class="w-full bg-gradient-to-b from-pink-50 to-purple-50 p-4 rounded-lg shadow-lg font-sans min-h-screen">
-  <h1 class="text-4xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Foire aux questions</h1>
+<main class="w-full bg-gradient-to-b from-pink-50 to-purple-50 p-4 rounded-lg shadow-lg font-sans min-h-screen" role="main">
+
+  <h1 class="text-4xl font-bold text-center bg-gradient-to-r from-pink-600 to-purple-700 text-transparent bg-clip-text mb-6">Foire aux questions</h1>
+
+
 
   <div class="max-w-3xl mx-auto">
+
     <!-- Filtres/Catégories de questions -->
-    <div class="flex flex-wrap gap-2 justify-center mb-6">
-      <button
-        *ngFor="let category of categories"
-        (click)="filterByCategory(category)"
-        [ngClass]="{
-          'bg-pink-200 text-pink-900': selectedCategory === category,
-          'bg-opacity-20 text-pink-900 bg-pink-100': selectedCategory !== category
-        }"
-        class="btn btn-sm border-none transition-all duration-200 hover:bg-pink-300 hover:text-pink-900">
-        {{ category }}
-      </button>
-      <button
-        (click)="filterByCategory('Toutes')"
-        [ngClass]="{
-          'bg-pink-200 text-pink-900': selectedCategory === 'Toutes',
-          'bg-opacity-20 text-pink-900 bg-pink-100': selectedCategory !== 'Toutes'
-        }"
-        class="btn btn-sm border-none transition-all duration-200 hover:bg-pink-300 hover:text-pink-900">
-        Toutes
-      </button>
+
+    <div role="navigation" aria-label="Filtres par catégorie">
+
+      <h2 class="sr-only">Filtrer les questions par catégorie</h2>
+
+      <div class="flex flex-wrap gap-2 justify-center mb-6">
+
+        <button
+
+          *ngFor="let category of categories"
+
+          (click)="filterByCategory(category)"
+
+          [ngClass]="{
+
+            'bg-pink-500 text-white': selectedCategory === category,
+
+            'bg-pink-200 text-pink-900': selectedCategory !== category
+
+          }"
+
+          class="btn btn-sm border-none transition-all duration-200 hover:bg-pink-400 hover:text-white focus:outline-2 focus:outline-pink-700 focus:outline-offset-2"
+
+          [attr.aria-pressed]="selectedCategory === category"
+
+          [attr.aria-label]="'Filtrer par catégorie ' + category">
+
+          {{ category }}
+
+        </button>
+
+        <button
+
+          (click)="filterByCategory('Toutes')"
+
+          [ngClass]="{
+
+            'bg-pink-500 text-white': selectedCategory === 'Toutes',
+
+            'bg-pink-200 text-pink-900': selectedCategory !== 'Toutes'
+
+          }"
+
+          class="btn btn-sm border-none transition-all duration-200 hover:bg-pink-400 hover:text-white focus:outline-2 focus:outline-pink-700 focus:outline-offset-2"
+
+          [attr.aria-pressed]="selectedCategory === 'Toutes'"
+
+          [attr.aria-label]="'Afficher toutes les questions'">
+
+          Toutes
+
+        </button>
+
+      </div>
+
     </div>
+
+
 
     <!-- Liste des questions -->
-    <div class="space-y-4 bg-white bg-opacity-80 p-6 rounded-lg shadow-md">
-      <div *ngFor="let item of filteredFaqItems" class="collapse collapse-arrow bg-pink-100 rounded-lg mb-3 overflow-hidden transition-all duration-300">
-        <input type="checkbox" />
-        <div class="collapse-title text-lg font-medium text-pink-900 hover:bg-pink-200 hover:bg-opacity-30 transition-all duration-200">
-          {{ item.question }}
+
+    <section aria-labelledby="questions-heading" class="space-y-4 bg-white bg-opacity-80 p-6 rounded-lg shadow-md">
+
+      <h2 id="questions-heading" class="sr-only">Questions fréquemment posées</h2>
+
+      <div class="faq-list">
+
+        <div *ngFor="let item of filteredFaqItems; let i = index" class="collapse collapse-arrow bg-pink-100 rounded-lg mb-3 overflow-hidden transition-all duration-300">
+
+          <input type="checkbox" [id]="'faq-item-'+i" [attr.aria-expanded]="false" [attr.aria-controls]="'faq-content-'+i" />
+
+          <label [for]="'faq-item-'+i" class="collapse-title text-lg font-medium text-pink-900 hover:bg-pink-200 hover:bg-opacity-30 transition-all duration-200 cursor-pointer" tabindex="0">
+
+            {{ item.question }}
+
+          </label>
+
+          <div [id]="'faq-content-'+i" class="collapse-content bg-white bg-opacity-70 transition-all duration-300 ease-in-out">
+
+            <p [innerHTML]="item.answer" class="text-pink-950"></p>
+
+          </div>
+
         </div>
-        <div class="collapse-content bg-white bg-opacity-70 transition-all duration-300 ease-in-out">
-          <p [innerHTML]="item.answer" class="text-pink-950"></p>
-        </div>
+
       </div>
-    </div>
+
+    </section>
+
   </div>
+
+
 
   <!-- Section Partenaires -->
-  <div class="w-full pt-8 pb-12 mt-8 relative">
-    <div class="absolute left-1/2 transform -translate-x-1/2 top-0 w-3/5 h-0.5 bg-white bg-opacity-30 rounded"></div>
 
-    <h2 class="text-4xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Nos Partenaires</h2>
+  <section class="w-full pt-8 pb-12 mt-8 relative" aria-labelledby="partners-heading">
+
+    <div class="absolute left-1/2 transform -translate-x-1/2 top-0 w-3/5 h-0.5 bg-white bg-opacity-30 rounded" aria-hidden="true"></div>
+
+
+
+    <h2 id="partners-heading" class="text-4xl font-bold text-center bg-gradient-to-r from-pink-600 to-purple-700 text-transparent bg-clip-text mb-6">Nos Partenaires</h2>
+
+
 
     <!-- Catégories de partenaires -->
-    <div class="mb-12">
-      <h3 class="text-xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Partenaires Officiels</h3>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
-        <div *ngFor="let partner of officialPartners" class="transition-all duration-300 hover:-translate-y-1">
-          <div class="bg-white bg-opacity-90 rounded-lg p-4 h-24 w-36 flex items-center justify-center shadow-md transition-transform hover:scale-105">
-            <img [src]="'/assets/images/logos/' + partner.logo" [alt]="partner.name" class="max-h-16 max-w-full">
-          </div>
-          <p class="text-center text-pink-400 mt-2 text-sm">{{partner.name}}</p>
-        </div>
-      </div>
-    </div>
 
     <div class="mb-12">
-      <h3 class="text-xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Partenaires Médias</h3>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
-        <div *ngFor="let partner of mediaPartners" class="transition-all duration-300 hover:-translate-y-1">
-          <div class="bg-white bg-opacity-90 rounded-lg p-4 h-24 w-36 flex items-center justify-center shadow-md transition-transform hover:scale-105">
-            <img [src]="'/assets/images/logos/' + partner.logo" [alt]="partner.name" class="max-h-16 max-w-full">
+
+      <h3 id="official-partners" class="text-xl font-bold text-center bg-gradient-to-r from-pink-600 to-purple-700 text-transparent bg-clip-text mb-6">Partenaires Officiels</h3>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center" role="list" aria-labelledby="official-partners">
+
+        <div *ngFor="let partner of officialPartners" class="transition-all duration-300 hover:-translate-y-1" role="listitem">
+
+          <!-- Structure pour les partenaires avec site web -->
+
+          <div *ngIf="partner.website && partner.website !== '#'" class="flex flex-col items-center">
+
+            <a [href]="partner.website" target="_blank" rel="noopener noreferrer" class="block focus:outline-2 focus:outline-pink-700 focus:outline-offset-4
+
+            rounded-lg" [attr.aria-label]="'Visiter le site de ' + partner.name">
+
+              <div class="bg-white bg-opacity-90 rounded-lg p-4 h-24 w-36 flex items-center justify-center shadow-md transition-transform hover:scale-105">
+
+                <img [src]="'/assets/images/logos/' + partner.logo" [alt]="'Logo de ' + partner.name" class="max-h-16 max-w-full">
+
+              </div>
+
+            </a>
+
+            <p class="text-center text-pink-700 mt-2 text-sm font-medium">{{partner.name}}</p>
+
           </div>
-          <p class="text-center text-pink-400 mt-2 text-sm">{{partner.name}}</p>
+
+
+
+          <!-- Structure pour les partenaires sans site web -->
+
+          <div *ngIf="!partner.website || partner.website === '#'" class="flex flex-col items-center">
+
+            <div class="bg-white bg-opacity-90 rounded-lg p-4 h-24 w-36 flex items-center justify-center shadow-md">
+
+              <img [src]="'/assets/images/logos/' + partner.logo" [alt]="'Logo de ' + partner.name" class="max-h-16 max-w-full">
+
+            </div>
+
+            <p class="text-center text-pink-700 mt-2 text-sm font-medium">{{partner.name}}</p>
+
+          </div>
+
         </div>
+
       </div>
+
     </div>
 
-    <div>
-      <h3 class="text-xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Partenaires Locaux</h3>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
-        <div *ngFor="let partner of localPartners" class="transition-all duration-300 hover:-translate-y-1">
-          <div class="bg-white bg-opacity-90 rounded-lg p-4 h-24 w-36 flex items-center justify-center shadow-md transition-transform hover:scale-105">
-            <img [src]="'/assets/images/logos/' + partner.logo" [alt]="partner.name" class="max-h-16 max-w-full">
+
+
+    <div class="mb-12">
+
+      <h3 id="media-partners" class="text-xl font-bold text-center bg-gradient-to-r from-pink-600 to-purple-700 text-transparent bg-clip-text mb-6">Partenaires Médias</h3>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center" role="list" aria-labelledby="media-partners">
+
+        <div *ngFor="let partner of mediaPartners" class="transition-all duration-300 hover:-translate-y-1" role="listitem">
+
+          <!-- Structure pour les partenaires avec site web -->
+
+          <div *ngIf="partner.website && partner.website !== '#'" class="flex flex-col items-center">
+
+            <a [href]="partner.website" target="_blank" rel="noopener noreferrer" class="block focus:outline-2 focus:outline-pink-700 focus:outline-offset-4
+
+            rounded-lg" [attr.aria-label]="'Visiter le site de ' + partner.name">
+
+              <div class="bg-white bg-opacity-90 rounded-lg p-4 h-24 w-36 flex items-center justify-center shadow-md transition-transform hover:scale-105">
+
+                <img [src]="'/assets/images/logos/' + partner.logo" [alt]="'Logo de ' + partner.name" class="max-h-16 max-w-full">
+
+              </div>
+
+            </a>
+
+            <p class="text-center text-pink-700 mt-2 text-sm font-medium">{{partner.name}}</p>
+
           </div>
-          <p class="text-center text-pink-400 mt-2 text-sm">{{partner.name}}</p>
+
+
+
+          <!-- Structure pour les partenaires sans site web -->
+
+          <div *ngIf="!partner.website || partner.website === '#'" class="flex flex-col items-center">
+
+            <div class="bg-white bg-opacity-90 rounded-lg p-4 h-24 w-36 flex items-center justify-center shadow-md">
+
+              <img [src]="'/assets/images/logos/' + partner.logo" [alt]="'Logo de ' + partner.name" class="max-h-16 max-w-full">
+
+            </div>
+
+            <p class="text-center text-pink-700 mt-2 text-sm font-medium">{{partner.name}}</p>
+
+          </div>
+
         </div>
+
       </div>
+
     </div>
 
-    <div>
-      <h3 class="text-xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Réseaux Sociaux</h3>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
-        <div *ngFor="let socials of socialNetworks" class="transition-all duration-300 hover:-translate-y-1">
-          <div class="bg-white bg-opacity-90 rounded-lg p-4 h-24 w-36 flex items-center justify-center shadow-md transition-transform hover:scale-105">
-            <img [src]="'/assets/images/logos/' + socials.logo" [alt]="socials.name" class="max-h-16 max-w-full">
+
+
+    <div class="mb-12">
+
+      <h3 id="local-partners" class="text-xl font-bold text-center bg-gradient-to-r from-pink-600 to-purple-700 text-transparent bg-clip-text mb-6">Partenaires Locaux</h3>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center" role="list" aria-labelledby="local-partners">
+
+        <div *ngFor="let partner of localPartners" class="transition-all duration-300 hover:-translate-y-1" role="listitem">
+
+          <!-- Structure pour les partenaires avec site web -->
+
+          <div *ngIf="partner.website && partner.website !== '#'" class="flex flex-col items-center">
+
+            <a [href]="partner.website" target="_blank" rel="noopener noreferrer" class="block focus:outline-2 focus:outline-pink-700 focus:outline-offset-4 rounded-lg" [attr.aria-label]="'Visiter le site de ' + partner.name">
+
+              <div class="bg-white bg-opacity-90 rounded-lg p-4 h-24 w-36 flex items-center justify-center shadow-md transition-transform hover:scale-105">
+
+                <img [src]="'/assets/images/logos/' + partner.logo" [alt]="'Logo de ' + partner.name" class="max-h-16 max-w-full">
+
+              </div>
+
+            </a>
+
+            <p class="text-center text-pink-700 mt-2 text-sm font-medium">{{partner.name}}</p>
+
           </div>
-          <p class="text-center text-pink-400 mt-2 text-sm">{{socials.name}}</p>
+
+
+
+          <!-- Structure pour les partenaires sans site web -->
+
+          <div *ngIf="!partner.website || partner.website === '#'" class="flex flex-col items-center">
+
+            <div class="bg-white bg-opacity-90 rounded-lg p-4 h-24 w-36 flex items-center justify-center shadow-md">
+
+              <img [src]="'/assets/images/logos/' + partner.logo" [alt]="'Logo de ' + partner.name" class="max-h-16 max-w-full">
+
+            </div>
+
+            <p class="text-center text-pink-700 mt-2 text-sm font-medium">{{partner.name}}</p>
+
+          </div>
+
         </div>
+
       </div>
+
     </div>
-  </div>
-</div>
+
+
+
+    <div>
+
+      <h3 id="social-networks" class="text-xl font-bold text-center bg-gradient-to-r from-pink-600 to-purple-700 text-transparent bg-clip-text mb-6">Réseaux Sociaux</h3>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center" role="list" aria-labelledby="social-networks">
+
+        <div *ngFor="let social of socialNetworks" class="transition-all duration-300 hover:-translate-y-1" role="listitem">
+
+          <!-- Structure pour les partenaires avec site web -->
+
+          <div *ngIf="social.website && social.website !== '#'" class="flex flex-col items-center">
+
+            <a [href]="social.website" target="_blank" rel="noopener noreferrer" class="block focus:outline-2 focus:outline-pink-700 focus:outline-offset-4 rounded-lg" [attr.aria-label]="'Visitez notre page ' + social.name">
+
+              <div class="bg-white bg-opacity-90 rounded-lg p-4 h-24 w-36 flex items-center justify-center shadow-md transition-transform hover:scale-105">
+
+                <img [src]="'/assets/images/logos/' + social.logo" [alt]="'Logo de ' + social.name" class="max-h-16 max-w-full">
+
+              </div>
+
+            </a>
+
+            <p class="text-center text-pink-700 mt-2 text-sm font-medium">{{social.name}}</p>
+
+          </div>
+
+
+
+          <!-- Structure pour les partenaires sans site web -->
+
+          <div *ngIf="!social.website || social.website === '#'" class="flex flex-col items-center">
+
+            <div class="bg-white bg-opacity-90 rounded-lg p-4 h-24 w-36 flex items-center justify-center shadow-md">
+
+              <img [src]="'/assets/images/logos/' + social.logo" [alt]="'Logo de ' + social.name" class="max-h-16 max-w-full">
+
+            </div>
+
+            <p class="text-center text-pink-700 mt-2 text-sm font-medium">{{social.name}}</p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+
+<style>
+
+  /* Pour les utilisateurs qui préfèrent réduire les mouvements */
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .transition-all,
+
+    .transition-transform,
+
+    .hover\:-translate-y-1,
+
+    .hover\:scale-105,
+
+    .collapse-content {
+
+      transition: none !important;
+
+      transform: none !important;
+
+    }
+
+  }
+
+
+
+  /* S'assurer que le contraste est suffisant */
+
+  .text-pink-700 {
+
+    color: #be185d; /* Couleur plus foncée pour un meilleur contraste */
+
+  }
+
+
+
+  /* S'assurer que le focus est visible */
+
+  button:focus,
+
+  [tabindex]:focus,
+
+  a:focus {
+
+    outline: 2px solid #be185d;
+
+    outline-offset: 2px;
+
+  }
+
+
+
+  /* Rendre les éléments cliquables plus grands pour les appareils tactiles */
+
+  @media (hover: none) and (pointer: coarse) {
+
+    button,
+
+    [tabindex="0"],
+
+    a {
+
+      min-height: 44px;
+
+      min-width: 44px;
+
+    }
+
+  }
+
+
+
+  /* Améliorer l'affichage des FAQ pour le focus */
+
+  .collapse-title:focus {
+
+    background-color: rgba(219, 39, 119, 0.2);
+
+    outline: 2px solid #be185d;
+
+    outline-offset: -2px;
+
+  }
+
+</style>

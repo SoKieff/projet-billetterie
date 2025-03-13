@@ -1,33 +1,38 @@
 <!-- client/src/app/visiteur/programme/programme.component.html -->
 
-<div class="w-full bg-gradient-to-b from-pink-50 to-purple-50 p-4 rounded-lg shadow-lg font-sans">
+<main class="w-full bg-gradient-to-b from-pink-50 to-purple-50 p-4 rounded-lg shadow-lg font-sans">
   <h1 class="text-4xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Festival J-Pop : Sakura Nights</h1>
 
   <!-- Barre de recherche -->
   <div class="mb-6 relative">
-    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+    <label for="search-input" class="sr-only">Rechercher un artiste ou une activité</label>
+    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
       </svg>
     </div>
     <input
+      id="search-input"
       type="text"
       placeholder="Rechercher un artiste ou une activité..."
       class="input input-bordered w-full pl-10 border-pink-300 focus:ring-2 focus:ring-pink-400 focus:border-transparent"
       [value]="filter.search"
       (input)="filter.search = $any($event.target).value; applyFilters()"
+      [attr.aria-label]="'Rechercher un artiste ou une activité'"
     />
   </div>
 
   <!-- Filtres -->
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6" role="search" [attr.aria-label]="'Filtrer les événements'">
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1">Jour</label>
+      <label for="day-filter" class="block text-sm font-medium text-gray-700 mb-1">Jour</label>
       <select
+        id="day-filter"
         name="day"
         [value]="filter.day"
         (change)="handleFilterChange($event)"
         class="select select-bordered w-full border-pink-300 focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+        [attr.aria-label]="'Filtrer par jour'"
       >
         <option value="all">Tous les jours</option>
         <option value="samedi">Samedi</option>
@@ -36,12 +41,14 @@
     </div>
 
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1">Scène</label>
+      <label for="scene-filter" class="block text-sm font-medium text-gray-700 mb-1">Scène</label>
       <select
+        id="scene-filter"
         name="scene"
         [value]="filter.scene"
         (change)="handleFilterChange($event)"
         class="select select-bordered w-full border-pink-300 focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+        [attr.aria-label]="'Filtrer par scène'"
       >
         <option value="all">Toutes les scènes</option>
         <option *ngFor="let scene of scenes" [value]="scene">{{ scene }}</option>
@@ -49,12 +56,14 @@
     </div>
 
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1">Heure de début</label>
+      <label for="time-filter" class="block text-sm font-medium text-gray-700 mb-1">Heure de début</label>
       <select
+        id="time-filter"
         name="startTime"
         [value]="filter.startTime"
         (change)="handleFilterChange($event)"
         class="select select-bordered w-full border-pink-300 focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+        [attr.aria-label]="'Filtrer par heure de début'"
       >
         <option value="all">Toutes les heures</option>
         <option *ngFor="let time of timeSlots" [value]="time">{{ time }}</option>
@@ -62,12 +71,14 @@
     </div>
 
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1">Type d'activité</label>
+      <label for="category-filter" class="block text-sm font-medium text-gray-700 mb-1">Type d'activité</label>
       <select
+        id="category-filter"
         name="category"
         [value]="filter.category"
         (change)="handleFilterChange($event)"
         class="select select-bordered w-full border-pink-300 focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+        [attr.aria-label]="'Filtrer par type d\'activité'"
       >
         <option value="all">Toutes les activités</option>
         <option *ngFor="let category of categories" [value]="category">
@@ -81,101 +92,158 @@
   <div class="flex justify-center mb-6">
     <button
       (click)="resetFilters()"
-      class="btn btn-primary bg-gradient-to-r from-pink-400 to-purple-400 border-none text-white px-4 py-2 rounded-lg hover:from-pink-500 hover:to-purple-500 transition-all duration-300 shadow-md hover:-translate-y-1 active:translate-y-0"
+      class="btn btn-primary bg-gradient-to-r from-pink-400 to-purple-400 border-none text-white px-4 py-2 rounded-lg hover:from-pink-500 hover:to-purple-500
+      transition-all duration-300 shadow-md hover:-translate-y-1 active:translate-y-0"
+      [attr.aria-label]="'Réinitialiser tous les filtres'"
     >
       Réinitialiser les filtres
     </button>
   </div>
 
-  <!-- Tableau des résultats -->
-  <div class="overflow-x-auto">
-    <table class="table w-full">
-      <thead>
-      <tr class="bg-gradient-to-r from-pink-400 to-purple-400 text-white">
-        <th class="rounded-tl-lg">Jour</th>
-        <th>Horaire</th>
-        <th>Nom</th>
-        <th class="hidden md:table-cell">Description</th>
-        <th>Scène</th>
-        <th class="rounded-tr-lg">Type</th>
-      </tr>
-      </thead>
-      <tbody>
-      <ng-container *ngIf="filteredEvents.length > 0; else noEvents">
-        <tr
-          *ngFor="let event of filteredEvents; let i = index"
-          class="hover:bg-pink-100 transition-colors duration-150 animate-fadeIn"
-          [ngClass]="{'bg-white': i % 2 === 0, 'bg-pink-50': i % 2 !== 0}"
+  <!-- Tableau des résultats - Version responsive optimisée -->
+  <section [attr.aria-labelledby]="'programme-title'">
+    <h2 id="programme-title" class="sr-only">Programme des événements</h2>
+    <div class="overflow-x-auto bg-white rounded-lg shadow-md">
+      <!-- Version mobile - Cards au lieu d'un tableau -->
+      <div class="md:hidden space-y-4 p-4">
+        <div *ngIf="filteredEvents.length === 0" class="p-6 text-center text-gray-500">
+          Aucun événement ne correspond à vos critères de recherche.
+        </div>
+
+        <div
+          *ngFor="let event of filteredEvents"
+          class="bg-white border border-pink-200 rounded-lg shadow-sm p-4 animate-fadeIn"
         >
-          <td class="border-b border-pink-200 capitalize">{{ event.day }}</td>
-          <td class="border-b border-pink-200">{{ event.startTime }} - {{ event.endTime }}</td>
-          <td class="border-b border-pink-200">
-            <span
-              class="font-bold cursor-pointer hover:text-pink-600 transition-colors duration-200 relative after:absolute after:content-[''] after:w-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-gradient-to-r after:from-pink-400 after:to-purple-400 hover:after:w-full after:transition-all after:duration-300"
-              (click)="openEventDetail(event)"
-            >
-              {{ event.name }}
-            </span>
-            <span *ngIf="event.longDescription" class="ml-2 text-xs text-pink-500">(+ d'infos)</span>
-          </td>
-          <td class="border-b border-pink-200 hidden md:table-cell">{{ event.description }}</td>
-          <td class="border-b border-pink-200">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <h3 class="font-bold text-lg text-pink-600">
+                <button
+                  (click)="openEventDetail(event)"
+                  class="hover:underline focus:outline-none focus:ring-2 focus:ring-pink-400"
+                  [attr.aria-label]="'Voir les détails de ' + event.name"
+                >
+                  {{ event.name }}
+                </button>
+              </h3>
+              <p class="text-gray-700">{{ event.description }}</p>
+            </div>
             <span [ngClass]="[getSceneColor(event.scene), 'badge min-w-[80px] text-center font-medium']">
               {{ event.scene }}
             </span>
-          </td>
-          <td class="border-b border-pink-200">
-            <span class="flex items-center">
-              <span class="mr-2">{{ getCategoryIcon(event.category) }}</span>
-              <span class="capitalize hidden md:inline">{{ event.category }}</span>
-            </span>
-          </td>
-        </tr>
-      </ng-container>
-      <ng-template #noEvents>
-        <tr>
-          <td colspan="6" class="p-6 text-center text-gray-500">
-            Aucun événement ne correspond à vos critères de recherche.
-          </td>
-        </tr>
-      </ng-template>
-      </tbody>
-    </table>
-  </div>
+          </div>
 
-  <!-- Informations pratiques -->
-  <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text">Informations Pratiques</h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div *ngFor="let info of infoPratiques" class="card bg-base-100 shadow-sm">
-        <div class="card-body p-4">
-          <h3 class="card-title text-lg font-bold mb-2 text-pink-600">{{ info.title }}</h3>
-          <ul class="space-y-1 text-gray-700">
-            <li *ngFor="let item of info.items">• {{ item }}</li>
-          </ul>
+          <div class="flex flex-wrap items-center text-sm text-gray-600 mt-3 gap-x-4">
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+              </svg>
+              <span class="capitalize">{{ event.day }}</span>
+            </div>
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+              </svg>
+              <span>{{ event.startTime }} - {{ event.endTime }}</span>
+            </div>
+            <div class="flex items-center">
+              <span class="mr-1">{{ getCategoryIcon(event.category) }}</span>
+              <span class="capitalize">{{ event.category }}</span>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- Version desktop - Tableau -->
+      <table class="table w-full hidden md:table" [attr.aria-label]="'Programme des événements'">
+        <caption class="sr-only">Liste des événements du festival</caption>
+        <thead>
+        <tr class="bg-gradient-to-r from-pink-400 to-purple-400 text-white">
+          <th scope="col" class="rounded-tl-lg">Jour</th>
+          <th scope="col">Horaire</th>
+          <th scope="col">Nom</th>
+          <th scope="col" class="hidden md:table-cell">Description</th>
+          <th scope="col">Scène</th>
+          <th scope="col" class="rounded-tr-lg">Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngIf="filteredEvents.length > 0; else noEvents">
+          <tr
+            *ngFor="let event of filteredEvents; let i = index"
+            class="hover:bg-pink-100 transition-colors duration-150 animate-fadeIn"
+            [ngClass]="{'bg-white': i % 2 === 0, 'bg-pink-50': i % 2 !== 0}"
+          >
+            <td class="border-b border-pink-200 capitalize">{{ event.day }}</td>
+            <td class="border-b border-pink-200">{{ event.startTime }} - {{ event.endTime }}</td>
+            <td class="border-b border-pink-200">
+              <button
+                class="font-bold hover:text-pink-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-50 rounded px-1"
+                (click)="openEventDetail(event)"
+                [attr.aria-label]="'Voir les détails de ' + event.name"
+              >
+                {{ event.name }}
+              </button>
+              <span *ngIf="event.longDescription" class="ml-2 text-xs text-pink-500">(+ d'infos)</span>
+            </td>
+            <td class="border-b border-pink-200 hidden md:table-cell">{{ event.description }}</td>
+            <td class="border-b border-pink-200">
+                <span [ngClass]="[getSceneColor(event.scene), 'badge min-w-[80px] text-center font-medium']">
+                  {{ event.scene }}
+                </span>
+            </td>
+            <td class="border-b border-pink-200">
+                <span class="flex items-center">
+                  <span class="mr-2" aria-hidden="true">{{ getCategoryIcon(event.category) }}</span>
+                  <span class="capitalize hidden md:inline">{{ event.category }}</span>
+                </span>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-template #noEvents>
+          <tr>
+            <td colspan="6" class="p-6 text-center text-gray-500">
+              Aucun événement ne correspond à vos critères de recherche.
+            </td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Informations pratiques -->
+  <section class="mt-8 bg-white p-6 rounded-lg shadow-md" [attr.aria-labelledby]="'info-pratiques-title'">
+    <h2 id="info-pratiques-title" class="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text">Informations Pratiques</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <article *ngFor="let info of infoPratiques; let i = index" class="card bg-base-100 shadow-sm">
+        <div class="card-body p-4">
+          <h3 id="info-title-{{i}}" class="card-title text-lg font-bold mb-2 text-pink-600">{{ info.title }}</h3>
+          <ul class="space-y-1 text-gray-700" [attr.aria-labelledby]="'info-title-' + i">
+            <li *ngFor="let item of info.items">{{ item }}</li>
+          </ul>
+        </div>
+      </article>
     </div>
 
     <p class="text-center mt-4 text-sm italic text-gray-600">
       *Programme sous réserve de modifications*
     </p>
-  </div>
-</div>
+  </section>
+</main>
 
 <!-- Modal de détail d'événement -->
-<div *ngIf="isDetailModalOpen" class="modal modal-open">
+<div *ngIf="isDetailModalOpen" class="modal modal-open" role="dialog" [attr.aria-modal]="true" [attr.aria-labelledby]="'event-detail-title'">
   <div class="modal-box max-w-4xl font-sans bg-white p-0 rounded-lg shadow-xl">
     <!-- En-tête de la modal -->
     <div class="sticky top-0 z-10 bg-gradient-to-r from-pink-400 to-purple-400 p-4 rounded-t-lg flex justify-between items-center">
-      <h2 class="text-white text-2xl font-bold">{{ selectedEvent?.name }}</h2>
+      <h2 id="event-detail-title" class="text-white text-2xl font-bold">{{ selectedEvent?.name }}</h2>
       <button
         (click)="closeEventDetail()"
         class="btn btn-circle btn-sm btn-ghost text-white hover:bg-white hover:bg-opacity-20"
-        aria-label="Fermer"
+        [attr.aria-label]="'Fermer les détails de l\'événement'"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
@@ -206,7 +274,7 @@
             <div class="mb-2">
               <span class="text-gray-600 text-sm">Type</span>
               <p class="font-medium flex items-center mt-1">
-                <span class="mr-2">{{ selectedEvent ? getCategoryIcon(selectedEvent.category || '') : '' }}</span>
+                <span class="mr-2" aria-hidden="true">{{ selectedEvent ? getCategoryIcon(selectedEvent.category || '') : '' }}</span>
                 <span class="capitalize">{{ selectedEvent?.category }}</span>
               </p>
             </div>
@@ -214,14 +282,14 @@
 
           <!-- Description courte -->
           <div class="mb-6">
-            <h3 class="text-lg font-semibold text-pink-600 mb-2">Description</h3>
-            <p class="text-gray-700">{{ selectedEvent?.description }}</p>
+            <h3 id="short-desc" class="text-lg font-semibold text-pink-600 mb-2">Description</h3>
+            <p class="text-gray-700" [attr.aria-labelledby]="'short-desc'">{{ selectedEvent?.description }}</p>
           </div>
 
           <!-- Description longue si disponible -->
           <div *ngIf="selectedEvent?.longDescription" class="mb-6">
-            <h3 class="text-lg font-semibold text-pink-600 mb-2">À propos</h3>
-            <div class="text-gray-700 space-y-2">
+            <h3 id="long-desc" class="text-lg font-semibold text-pink-600 mb-2">À propos</h3>
+            <div class="text-gray-700 space-y-2" [attr.aria-labelledby]="'long-desc'">
               <p>{{ selectedEvent?.longDescription }}</p>
             </div>
           </div>
@@ -229,8 +297,8 @@
           <!-- Setlist si disponible -->
           <ng-container *ngIf="selectedEvent?.setlist as setlist">
             <div *ngIf="setlist.length > 0" class="mb-6">
-              <h3 class="text-lg font-semibold text-pink-600 mb-2">Setlist</h3>
-              <ul class="list-disc pl-5 space-y-1">
+              <h3 id="setlist-title" class="text-lg font-semibold text-pink-600 mb-2">Setlist</h3>
+              <ul class="list-disc pl-5 space-y-1" [attr.aria-labelledby]="'setlist-title'">
                 <li *ngFor="let song of setlist" class="text-gray-700">
                   {{ song }}
                 </li>
@@ -242,10 +310,10 @@
         <!-- Image de l'artiste si disponible -->
         <div class="w-full md:w-1/3 mt-4 md:mt-0">
           <div *ngIf="selectedEvent?.artistImage; else placeholderImage" class="rounded-lg overflow-hidden shadow-md">
-            <img [src]="selectedEvent?.artistImage" [alt]="selectedEvent?.name" class="w-full h-auto" />
+            <img [src]="selectedEvent?.artistImage" [alt]="'Photo de ' + selectedEvent?.name" class="w-full h-auto" />
           </div>
           <ng-template #placeholderImage>
-            <div class="rounded-lg overflow-hidden shadow-md bg-gradient-to-br from-pink-200 to-purple-200 h-64 flex items-center justify-center">
+            <div class="rounded-lg overflow-hidden shadow-md bg-gradient-to-br from-pink-200 to-purple-200 h-64 flex items-center justify-center" aria-hidden="true">
               <div class="text-center p-4">
                 <span class="text-5xl block mb-2">{{ selectedEvent ? getCategoryIcon(selectedEvent.category || '') : '✨' }}</span>
                 <span class="text-pink-600 font-medium">{{ selectedEvent?.name }}</span>
@@ -256,17 +324,18 @@
           <!-- Liens sociaux si disponibles -->
           <ng-container *ngIf="selectedEvent?.socialLinks as socialLinks">
             <div *ngIf="socialLinks.length > 0" class="mt-4">
-              <h3 class="text-lg font-semibold text-pink-600 mb-2">Suivre</h3>
-              <div class="flex flex-wrap gap-2">
+              <h3 id="social-links" class="text-lg font-semibold text-pink-600 mb-2">Suivre</h3>
+              <div class="flex flex-wrap gap-2" [attr.aria-labelledby]="'social-links'">
                 <a
                   *ngFor="let link of socialLinks"
                   [href]="link.url"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="btn btn-sm btn-primary bg-gradient-to-r from-pink-400 to-purple-400 border-none text-white rounded-full hover:from-pink-500 hover:to-purple-500 transition-all duration-200 flex items-center"
+                  [attr.aria-label]="'Visiter ' + link.platform + ' de ' + selectedEvent?.name"
                 >
                   {{ link.platform }}
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
                 </a>
@@ -276,15 +345,17 @@
 
           <!-- Vidéo si disponible -->
           <div *ngIf="selectedEvent?.videoUrl" class="mt-4">
-            <h3 class="text-lg font-semibold text-pink-600 mb-2">Vidéo</h3>
+            <h3 id="video-title" class="text-lg font-semibold text-pink-600 mb-2">Vidéo</h3>
             <a
               [href]="selectedEvent?.videoUrl || '#'"
               target="_blank"
               rel="noopener noreferrer"
               class="btn btn-outline btn-block bg-gradient-to-r from-pink-100 to-purple-100 border-none text-pink-600 hover:from-pink-200 hover:to-purple-200 transition-all duration-200"
+              [attr.aria-label]="'Regarder la vidéo de ' + selectedEvent?.name"
+              [attr.aria-labelledby]="'video-title'"
             >
               <span class="flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -307,6 +378,7 @@
       <button
         (click)="closeEventDetail()"
         class="btn btn-primary bg-gradient-to-r from-pink-400 to-purple-400 border-none text-white rounded-lg hover:from-pink-500 hover:to-purple-500 transition-all duration-200"
+        [attr.aria-label]="'Fermer la fenêtre de détails'"
       >
         Fermer
       </button>

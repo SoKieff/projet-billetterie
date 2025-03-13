@@ -1,17 +1,19 @@
 <!-- client/src/app/visiteur/map/map.component.html -->
 
-<div class="w-full bg-gradient-to-b from-pink-50 to-purple-50 p-4 rounded-lg shadow-lg font-sans min-h-screen">
+<main class="w-full bg-gradient-to-b from-pink-50 to-purple-50 p-4 rounded-lg shadow-lg font-sans min-h-screen">
   <h1 class="text-4xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Plan du Festival</h1>
 
   <!-- Filtres de la carte -->
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6" role="search" aria-label="Filtres de la carte">
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1">Catégorie</label>
+      <label for="category-select" class="block text-sm font-medium text-gray-700 mb-1">Catégorie</label>
       <select
+        id="category-select"
         name="category"
         [value]="selectedCategory"
         (change)="onCategoryChange($event)"
         class="select select-bordered w-full border-pink-300 focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+        aria-label="Filtrer les éléments par catégorie"
       >
         <option value="all">Toutes les catégories</option>
         <option value="scene">Scènes</option>
@@ -25,12 +27,14 @@
 
     <!-- Bouton de localisation -->
     <div class="md:col-start-4">
-      <label class="block text-sm font-medium text-gray-700 mb-1">Ma position</label>
+      <label for="location-button" class="block text-sm font-medium text-gray-700 mb-1">Ma position</label>
       <button
+        id="location-button"
         (click)="centerOnUserLocation()"
         class="btn btn-primary w-full bg-gradient-to-r from-pink-400 to-purple-400 text-white border-none hover:from-pink-500 hover:to-purple-500 transition-all duration-300"
+        aria-label="Centrer la carte sur ma position actuelle"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
           <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
         </svg>
         Me localiser
@@ -39,72 +43,76 @@
   </div>
 
   <!-- Conteneur de la carte avec hauteur augmentée -->
-  <div class="relative w-full h-[550px] rounded-lg overflow-hidden shadow-md animate-fadeIn">
-    <div id="map" class="w-full h-full"></div>
+  <section aria-label="Carte interactive du festival" class="relative w-full h-[550px] rounded-lg overflow-hidden shadow-md animate-fadeIn">
+    <div id="map" class="w-full h-full" aria-describedby="map-description" tabindex="0"></div>
+    <p id="map-description" class="sr-only">Carte interactive du festival. Utilisez les filtres au-dessus pour afficher différents éléments. Les détails des éléments s'afficheront quand vous cliquerez dessus.</p>
 
     <!-- Popup pour les marqueurs (invisible par défaut) -->
-    <div id="popup" class="hidden absolute bg-white rounded-lg shadow-lg p-4 min-w-[220px] z-10">
-      <a href="#" id="popup-closer" class="absolute top-2 right-2 text-pink-500 hover:text-pink-700 text-lg">&times;</a>
-      <div id="popup-content" class="text-center"></div>
+    <div id="popup" class="hidden absolute bg-white rounded-lg shadow-lg p-4 min-w-[220px] z-10" role="dialog" aria-labelledby="popup-title">
+      <button id="popup-closer" class="absolute top-2 right-2 text-pink-500 hover:text-pink-700 text-lg" aria-label="Fermer les détails">×</button>
+      <div id="popup-content" class="text-center">
+        <h2 id="popup-title" class="text-lg font-bold"></h2>
+        <p></p>
+      </div>
     </div>
-  </div>
+  </section>
 
   <!-- Légende de la carte -->
-  <div class="bg-white p-4 rounded-lg shadow-md mt-6">
-    <h2 class="text-xl font-bold mb-3 bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text">Légende</h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-      <div *ngFor="let item of legendItems" class="flex items-center">
-        <div class="w-4 h-4 rounded-full mr-2" [ngClass]="item.tailwindClass"></div>
+  <section class="bg-white p-4 rounded-lg shadow-md mt-6" aria-labelledby="legend-title">
+    <h2 id="legend-title" class="text-xl font-bold mb-3 bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text">Légende</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3" role="list">
+      <div *ngFor="let item of legendItems" class="flex items-center" role="listitem">
+        <div class="w-4 h-4 rounded-full mr-2" [ngClass]="item.tailwindClass" aria-hidden="true"></div>
         <span class="text-gray-700">{{ item.label }}</span>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Informations pratiques dans le style de la page programme -->
-  <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text">Informations Pratiques</h2>
+  <section class="mt-8 bg-white p-6 rounded-lg shadow-md" aria-labelledby="info-title">
+    <h2 id="info-title" class="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text">Informations Pratiques</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="card bg-white shadow-sm">
+      <article class="card bg-white shadow-sm">
         <div class="card-body p-4">
-          <h3 class="card-title text-lg font-bold mb-2 text-pink-600">Horaires d'ouverture</h3>
-          <ul class="space-y-1 text-gray-700">
-            <li>• Ouverture des portes : 14h30</li>
-            <li>• Début des concerts : 15h00</li>
-            <li>• Fermeture : 02h00</li>
+          <h3 id="horaires-title" class="card-title text-lg font-bold mb-2 text-pink-600">Horaires d'ouverture</h3>
+          <ul class="space-y-1 text-gray-700" aria-labelledby="horaires-title">
+            <li>Ouverture des portes : 14h30</li>
+            <li>Début des concerts : 15h00</li>
+            <li>Fermeture : 02h00</li>
           </ul>
         </div>
-      </div>
+      </article>
 
-      <div class="card bg-white shadow-sm">
+      <article class="card bg-white shadow-sm">
         <div class="card-body p-4">
-          <h3 class="card-title text-lg font-bold mb-2 text-pink-600">Services disponibles</h3>
-          <ul class="space-y-1 text-gray-700">
-            <li>• Consigne pour effets personnels (jusqu'à 01h30)</li>
-            <li>• Points d'eau gratuits</li>
-            <li>• Stands de nourriture et boissons</li>
-            <li>• Poste de premiers secours 24h/24</li>
-            <li>• Point information et objets trouvés</li>
-            <li>• Service de navettes nocturnes</li>
+          <h3 id="services-title" class="card-title text-lg font-bold mb-2 text-pink-600">Services disponibles</h3>
+          <ul class="space-y-1 text-gray-700" aria-labelledby="services-title">
+            <li>Consigne pour effets personnels (jusqu'à 01h30)</li>
+            <li>Points d'eau gratuits</li>
+            <li>Stands de nourriture et boissons</li>
+            <li>Poste de premiers secours 24h/24</li>
+            <li>Point information et objets trouvés</li>
+            <li>Service de navettes nocturnes</li>
           </ul>
         </div>
-      </div>
+      </article>
 
-      <div class="card bg-white shadow-sm">
+      <article class="card bg-white shadow-sm">
         <div class="card-body p-4">
-          <h3 class="card-title text-lg font-bold mb-2 text-pink-600">Règles importantes</h3>
-          <ul class="space-y-1 text-gray-700">
-            <li>• Appareils photo autorisés (sans objectif détachable)</li>
-            <li>• Light sticks autorisés</li>
-            <li>• Pas de nourriture ni boissons de l'extérieur</li>
-            <li>• Bracelets phosphorescents fournis pour la sécurité nocturne</li>
+          <h3 id="regles-title" class="card-title text-lg font-bold mb-2 text-pink-600">Règles importantes</h3>
+          <ul class="space-y-1 text-gray-700" aria-labelledby="regles-title">
+            <li>Appareils photo autorisés (sans objectif détachable)</li>
+            <li>Light sticks autorisés</li>
+            <li>Pas de nourriture ni boissons de l'extérieur</li>
+            <li>Bracelets phosphorescents fournis pour la sécurité nocturne</li>
           </ul>
         </div>
-      </div>
+      </article>
     </div>
 
     <p class="text-center mt-4 text-sm italic text-gray-600">
       *Plan sous réserve de modifications*
     </p>
-  </div>
-</div>
+  </section>
+</main>

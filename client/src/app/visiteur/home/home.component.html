@@ -1,19 +1,20 @@
 <!-- Hero Section avec Carrousel -->
-<div class="relative h-[80vh] overflow-hidden" xmlns="http://www.w3.org/1999/html">
+<div class="relative h-[80vh] overflow-hidden" role="region" aria-roledescription="carrousel" aria-label="Images du festival">
   <!-- Images -->
   <div class="relative w-full h-full">
     @for (image of carouselImages; track $index) {
       <div
         class="absolute inset-0 transition-opacity duration-500"
         [class.opacity-100]="currentImageIndex === $index"
-        [class.opacity-0]="currentImageIndex !== $index">
+        [class.opacity-0]="currentImageIndex !== $index"
+        [attr.aria-hidden]="currentImageIndex !== $index">
         <img [src]="image"
              class="w-full h-full object-cover transition-transform duration-300"
              [ngStyle]="{
                'object-position': $index >= 2 ? 'center 25%' : 'center center'
              }"
-             alt="Festival image">
-        <div class="absolute inset-0 bg-black/30"></div>
+             [alt]="'Photo du Festival JPop, image ' + ($index + 1) + ' sur ' + carouselImages.length">
+        <div class="absolute inset-0 bg-black/30" aria-hidden="true"></div>
       </div>
     }
 
@@ -21,7 +22,8 @@
     <div class="absolute inset-0 flex flex-col items-center justify-center text-white z-10">
       <h1 class="text-5xl md:text-7xl font-bold mb-4 font-['Sansita'] text-center">Festival JPop</h1>
       <p class="text-2xl md:text-3xl mb-8 text-center">24 et 25 Août 2025</p>
-      <a routerLink="/tickets" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-8 rounded-full transition-colors shadow-lg hover:shadow-xl text-xl">
+      <a routerLink="/tickets" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-8 rounded-full transition-colors shadow-lg hover:shadow-xl text-xl"
+         aria-label="Achetez vos billets pour le Festival JPop">
         Achetez vos billets
       </a>
     </div>
@@ -29,66 +31,72 @@
     <!-- Boutons de navigation -->
     <button
       (click)="previousImage()"
-      class="absolute left-4 top-1/3 md:top-1/2 -translate-y-1/2 text-white bg-black/30 hover:bg-black/50 p-3 md:p-4 rounded-full transition-colors z-20">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      class="absolute left-4 top-1/3 md:top-1/2 -translate-y-1/2 text-white bg-black/30 hover:bg-black/50 p-3 md:p-4 rounded-full transition-colors z-20"
+      aria-label="Image précédente">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
       </svg>
     </button>
 
     <button
       (click)="nextImage()"
-      class="absolute right-4 top-1/3 md:top-1/2 -translate-y-1/2 text-white bg-black/30 hover:bg-black/50 p-3 md:p-4 rounded-full transition-colors z-20">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      class="absolute right-4 top-1/3 md:top-1/2 -translate-y-1/2 text-white bg-black/30 hover:bg-black/50 p-3 md:p-4 rounded-full transition-colors z-20"
+      aria-label="Image suivante">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>
     </button>
 
     <!-- Points de navigation -->
-    <div class="absolute bottom-8 md:bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-20">
+    <div class="absolute bottom-8 md:bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-20" role="tablist" aria-label="Navigation du carrousel">
       @for (image of carouselImages; track $index) {
         <button
           (click)="setImage($index)"
           class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full transition-colors"
-          [class]="currentImageIndex === $index ? 'bg-pink-500' : 'bg-white/50 hover:bg-white/75'">
+          [class]="currentImageIndex === $index ? 'bg-pink-500' : 'bg-white/50 hover:bg-white/75'"
+          [attr.aria-label]="'Afficher l\'image ' + ($index + 1)"
+          [attr.aria-selected]="currentImageIndex === $index"
+          role="tab">
         </button>
       }
     </div>
   </div>
 </div>
 
-<div class="min-h-screen bg-pink-50 pt-6 pb-24 font-['Sansita']">
+<main class="min-h-screen bg-pink-50 pt-6 pb-24 font-['Sansita']">
 
-  <section class="max-w-screen-xl mx-auto px-4">
-    <h2 class="text-4xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Artistes et Programmation</h2>
+  <section class="max-w-screen-xl mx-auto px-4" aria-labelledby="section-artistes">
+    <h2 id="section-artistes" class="text-4xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Artistes et Programmation</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div *ngFor="let artist of artists" class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
-        <a routerLink="/visiteur/programme">
-        <img [src]="artist.image" [alt]="artist.name" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        <a routerLink="/visiteur/programme" [attr.aria-label]="'Voir le programme de ' + artist.name">
+          <img [src]="artist.image" [alt]="'Photo de ' + artist.name" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+            <h3 class="text-white text-xl font-bold">{{artist.name}}</h3>
+          </div>
         </a>
-        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-          <h3 class="text-white text-xl font-bold">{{artist.name}}</h3>
-        </div>
       </div>
     </div>
 
     <!-- Bouton Programme -->
     <div class="text-center mb-16">
-      <a routerLink="/visiteur/programme" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full transition-colors shadow-lg hover:shadow-xl">
+      <a routerLink="/visiteur/programme" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full
+      transition-colors shadow-lg hover:shadow-xl" aria-label="Voir le programme complet du festival">
         Voir le programme complet
       </a>
     </div>
   </section>
 
   <!-- Section Informations Pratiques -->
-  <section class="max-w-screen-xl mx-auto px-4">
+  <section class="max-w-screen-xl mx-auto px-4" aria-labelledby="section-infos">
     <div class="bg-white rounded-xl shadow-lg p-8">
-      <h2 class="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text">Informations Pratiques</h2>
+      <h2 id="section-infos" class="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text">Informations Pratiques</h2>
 
       <div class="max-w-2xl mx-auto space-y-4">
         <!-- Lieu -->
         <div class="flex items-center p-6 bg-pink-50 rounded-lg hover:shadow-lg transition-shadow">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-pink-500 flex-shrink-0" viewBox="0 0 24 24" fill="none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-pink-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
                   stroke="currentColor"
                   stroke-width="2"
@@ -98,16 +106,16 @@
                     stroke-width="2"/>
           </svg>
           <div class="ml-6">
-            <a routerLink="/visiteur/map">
-            <h3 class="text-xl font-bold text-gray-800">Lieu</h3>
-            <p class="text-gray-600">Paris</p>
+            <a routerLink="/visiteur/map" aria-label="Voir le lieu du festival sur la carte">
+              <h3 class="text-xl font-bold text-gray-800">Lieu</h3>
+              <p class="text-gray-600">Paris</p>
             </a>
           </div>
         </div>
 
         <!-- Accès -->
         <div class="flex items-center p-6 bg-pink-50 rounded-lg hover:shadow-lg transition-shadow">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-pink-500 flex-shrink-0" viewBox="0 0 24 24" fill="none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-pink-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
                   stroke="currentColor"
                   stroke-width="2"
@@ -117,29 +125,29 @@
                     stroke-width="2"/>
           </svg>
           <div class="ml-6">
-            <a routerLink="/visiteur/faq">
-            <h3 class="text-xl font-bold text-gray-800">Accès</h3>
-            <p class="text-gray-600">Métro, Bus</p>
+            <a routerLink="/visiteur/faq" aria-label="Consulter les informations d'accès au festival">
+              <h3 class="text-xl font-bold text-gray-800">Accès</h3>
+              <p class="text-gray-600">Métro, Bus</p>
             </a>
           </div>
         </div>
 
         <!-- Sur place -->
         <div class="flex items-center p-6 bg-pink-50 rounded-lg hover:shadow-lg transition-shadow">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-pink-500 flex-shrink-0" viewBox="0 0 24 24" fill="none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-pink-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
                   stroke="currentColor"
                   stroke-width="2"
                   stroke-linecap="round"/>
           </svg>
           <div class="ml-6">
-            <a routerLink="/visiteur/faq">
-            <h3 class="text-xl font-bold text-gray-800">Sur place</h3>
-            <p class="text-gray-600">Foodtrucks, stands, animations</p>
+            <a routerLink="/visiteur/faq" aria-label="Voir les informations sur les services disponibles sur place">
+              <h3 class="text-xl font-bold text-gray-800">Sur place</h3>
+              <p class="text-gray-600">Foodtrucks, stands, animations</p>
             </a>
           </div>
         </div>
       </div>
     </div>
   </section>
-</div>
+</main>

@@ -1,5 +1,32 @@
-<footer class=" bottom-0 w-full bg-[#FF9ECA] pt-4 font-['Sansita'] z-50">
-  <div class="mt-4 py-2 text-center text-xs text-white/80">
-    <p>© 2024 MSPR Billeterie. Tous droits réservés. | Mentions légales | Politique de confidentialité | <a routerLink="/visiteur/faq" routerLinkActive="active">Info</a></p>
+<footer class="bottom-0 w-full bg-pink-300 pt-4 font-['Sansita'] z-50" role="contentinfo" aria-label="Pied de page">
+  <div class="container mx-auto px-4">
+    <nav aria-label="Liens légaux et informations">
+      <ul class="flex flex-wrap justify-center gap-2 md:gap-4 py-2 text-white">
+        <li>&copy; 2024 MSPR Billeterie. Tous droits réservés.</li>
+        <li><a href="/mentions-legales" class="underline hover:text-white/80 focus:outline-2 focus:outline-white focus:outline-offset-2" aria-label="Accéder aux mentions légales">Mentions légales</a></li>
+        <li><a href="/confidentialite" class="underline hover:text-white/80 focus:outline-2 focus:outline-white focus:outline-offset-2" aria-label="Accéder à la politique de confidentialité">Politique de confidentialité</a></li>
+        <li><a routerLink="/visiteur/faq" routerLinkActive="active" class="underline hover:text-white/80 focus:outline-2 focus:outline-white focus:outline-offset-2" aria-label="Accéder aux informations et FAQ">Info</a></li>
+      </ul>
+    </nav>
   </div>
 </footer>
+
+<style>
+
+  /* Styles pour améliorer la lisibilité */
+  footer {
+    @apply text-sm text-white;
+  }
+
+  /* Focus visible pour l'accessibilité */
+  footer a:focus {
+    @apply outline outline-2 outline-white outline-offset-2;
+  }
+
+  /* Adaptation pour les écrans très petits */
+  @media (max-width: 400px) {
+    footer ul {
+      @apply flex-col items-center space-y-2;
+    }
+  }
+</style>
