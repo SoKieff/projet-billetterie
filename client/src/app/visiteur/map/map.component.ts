@@ -31,14 +31,14 @@ interface MapPlace {
 interface LegendItem {
   category: string;
   label: string;
-  colorClass: string;
+  tailwindClass: string;
   color: string;
 }
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  // Pas besoin de styleUrls puisque nous utilisons Tailwind CSS
 })
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   map!: Map;
@@ -50,14 +50,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   isLoading: boolean = true;
   popup?: Overlay;
 
-  // Éléments de légende
+  // Éléments de légende - mis à jour avec des classes Tailwind
   legendItems: LegendItem[] = [
-    {category: 'scene', label: 'Scènes', colorClass: 'bg-scene', color: '#EC4899'},
-    {category: 'food', label: 'Nourriture', colorClass: 'bg-food', color: '#F59E0B'},
-    {category: 'drink', label: 'Boissons', colorClass: 'bg-drink', color: '#3B82F6'},
-    {category: 'toilet', label: 'Toilettes', colorClass: 'bg-toilet', color: '#10B981'},
-    {category: 'firstaid', label: 'Premiers secours', colorClass: 'bg-firstaid', color: '#EF4444'},
-    {category: 'entrance', label: 'Entrées/Sorties', colorClass: 'bg-entrance', color: '#8B5CF6'}
+    {category: 'scene', label: 'Scènes', tailwindClass: 'bg-gradient-to-b from-pink-500 to-purple-500', color: '#EC4899'},
+    {category: 'food', label: 'Nourriture', tailwindClass: 'bg-gradient-to-b from-amber-500 to-amber-600', color: '#F59E0B'},
+    {category: 'drink', label: 'Boissons', tailwindClass: 'bg-gradient-to-b from-blue-500 to-blue-700', color: '#3B82F6'},
+    {category: 'toilet', label: 'Toilettes', tailwindClass: 'bg-gradient-to-b from-emerald-500 to-emerald-600', color: '#10B981'},
+    {category: 'firstaid', label: 'Premiers secours', tailwindClass: 'bg-gradient-to-b from-red-500 to-red-700', color: '#EF4444'},
+    {category: 'entrance', label: 'Entrées/Sorties', tailwindClass: 'bg-gradient-to-b from-purple-500 to-purple-700', color: '#8B5CF6'}
   ];
 
   constructor(
@@ -140,6 +140,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       if (closer) {
         closer.onclick = () => {
           if (this.popup) {
+            container.classList.add('hidden');
             this.popup.setPosition(undefined);
           }
           closer.blur();
@@ -162,20 +163,22 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
           // Remplir le contenu du popup
           const content = document.getElementById('popup-content');
-          if (content && this.popup) {
-            // Créer le contenu HTML pour le popup
-            let html = `<h3>${place.name}</h3>`;
-            html += `<p class="category">${this.getCategoryLabel(place.category)}</p>`;
+          const container = document.getElementById('popup');
+          if (content && this.popup && container) {
+            // Créer le contenu HTML pour le popup avec des classes Tailwind
+            let html = `<h3 class="text-lg font-bold mb-2 bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text">${place.name}</h3>`;
+            html += `<span class="inline-block px-3 py-1 mb-2 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">${this.getCategoryLabel(place.category)}</span>`;
 
             if (place.description) {
-              html += `<p class="description">${place.description}</p>`;
+              html += `<p class="text-sm text-gray-600 mb-2">${place.description}</p>`;
             }
 
             if (place.openingTime && place.closingTime) {
-              html += `<p class="hours">Ouvert: ${place.openingTime} - ${place.closingTime}</p>`;
+              html += `<p class="text-xs italic text-gray-500">Ouvert: ${place.openingTime} - ${place.closingTime}</p>`;
             }
 
             content.innerHTML = html;
+            container.classList.remove('hidden');
 
             // Positionner le popup à la géométrie du feature
             const geometry = feature.getGeometry();
@@ -189,7 +192,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       } else {
         // Si on clique ailleurs, on cache le popup
-        if (this.popup) {
+        const container = document.getElementById('popup');
+        if (this.popup && container) {
+          container.classList.add('hidden');
           this.popup.setPosition(undefined);
         }
       }
@@ -308,7 +313,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // Modification de la signature de la méthode pour accepter FeatureLike au lieu de Feature
   createMarkerStyle(feature: FeatureLike): Style {
     const category = feature.get('category');
 
@@ -449,4 +453,3 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     return item ? item.label : 'Autre';
   }
 }
-

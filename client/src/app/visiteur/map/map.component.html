@@ -1,6 +1,6 @@
 <!-- client/src/app/visiteur/map/map.component.html -->
 
-<div class="w-full bg-gradient-to-b from-pink-50 to-purple-50 p-4 rounded-lg shadow-lg font-sansita">
+<div class="w-full bg-gradient-to-b from-pink-50 to-purple-50 p-4 rounded-lg shadow-lg font-sans min-h-screen">
   <h1 class="text-4xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text mb-6">Plan du Festival</h1>
 
   <!-- Filtres de la carte -->
@@ -11,7 +11,7 @@
         name="category"
         [value]="selectedCategory"
         (change)="onCategoryChange($event)"
-        class="w-full p-2 border border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+        class="select select-bordered w-full border-pink-300 focus:ring-2 focus:ring-pink-400 focus:border-transparent"
       >
         <option value="all">Toutes les catégories</option>
         <option value="scene">Scènes</option>
@@ -28,7 +28,7 @@
       <label class="block text-sm font-medium text-gray-700 mb-1">Ma position</label>
       <button
         (click)="centerOnUserLocation()"
-        class="w-full bg-gradient-to-r from-pink-400 to-purple-400 text-white px-4 py-2 rounded-lg hover:from-pink-500 hover:to-purple-500 transition-all duration-300 shadow-md flex items-center justify-center"
+        class="btn btn-primary w-full bg-gradient-to-r from-pink-400 to-purple-400 text-white border-none hover:from-pink-500 hover:to-purple-500 transition-all duration-300"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
@@ -39,13 +39,13 @@
   </div>
 
   <!-- Conteneur de la carte avec hauteur augmentée -->
-  <div class="map-wrapper" style="height: 550px; min-height: 550px;">
-    <div id="map" class="map h-full"></div>
+  <div class="relative w-full h-[550px] rounded-lg overflow-hidden shadow-md animate-fadeIn">
+    <div id="map" class="w-full h-full"></div>
 
     <!-- Popup pour les marqueurs (invisible par défaut) -->
-    <div id="popup" class="ol-popup">
-      <a href="#" id="popup-closer" class="ol-popup-closer"></a>a>
-      <div id="popup-content"></div>
+    <div id="popup" class="hidden absolute bg-white rounded-lg shadow-lg p-4 min-w-[220px] z-10">
+      <a href="#" id="popup-closer" class="absolute top-2 right-2 text-pink-500 hover:text-pink-700 text-lg">&times;</a>
+      <div id="popup-content" class="text-center"></div>
     </div>
   </div>
 
@@ -54,8 +54,8 @@
     <h2 class="text-xl font-bold mb-3 bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text">Légende</h2>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
       <div *ngFor="let item of legendItems" class="flex items-center">
-        <div [ngClass]="'w-4 h-4 rounded-full mr-2 ' + item.colorClass"></div>
-        <span>{{ item.label }}</span>
+        <div class="w-4 h-4 rounded-full mr-2" [ngClass]="item.tailwindClass"></div>
+        <span class="text-gray-700">{{ item.label }}</span>
       </div>
     </div>
   </div>
@@ -65,35 +65,41 @@
     <h2 class="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text">Informations Pratiques</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div>
-        <h3 class="text-lg font-bold mb-2 text-pink-600">Horaires d'ouverture</h3>
-        <ul class="space-y-1">
-          <li>• Ouverture des portes : 14h30</li>
-          <li>• Début des concerts : 15h30</li>
-          <li>• Fermeture : 02h00</li>
-        </ul>
+      <div class="card bg-white shadow-sm">
+        <div class="card-body p-4">
+          <h3 class="card-title text-lg font-bold mb-2 text-pink-600">Horaires d'ouverture</h3>
+          <ul class="space-y-1 text-gray-700">
+            <li>• Ouverture des portes : 14h30</li>
+            <li>• Début des concerts : 15h00</li>
+            <li>• Fermeture : 02h00</li>
+          </ul>
+        </div>
       </div>
 
-      <div>
-        <h3 class="text-lg font-bold mb-2 text-pink-600">Services disponibles</h3>
-        <ul class="space-y-1">
-          <li>• Consigne pour effets personnels (jusqu'à 01h30)</li>
-          <li>• Points d'eau gratuits</li>
-          <li>• Stands de nourriture et boissons</li>
-          <li>• Poste de premiers secours 24h/24</li>
-          <li>• Point information et objets trouvés</li>
-          <li>• Service de navettes nocturnes</li>
-        </ul>
+      <div class="card bg-white shadow-sm">
+        <div class="card-body p-4">
+          <h3 class="card-title text-lg font-bold mb-2 text-pink-600">Services disponibles</h3>
+          <ul class="space-y-1 text-gray-700">
+            <li>• Consigne pour effets personnels (jusqu'à 01h30)</li>
+            <li>• Points d'eau gratuits</li>
+            <li>• Stands de nourriture et boissons</li>
+            <li>• Poste de premiers secours 24h/24</li>
+            <li>• Point information et objets trouvés</li>
+            <li>• Service de navettes nocturnes</li>
+          </ul>
+        </div>
       </div>
 
-      <div>
-        <h3 class="text-lg font-bold mb-2 text-pink-600">Règles importantes</h3>
-        <ul class="space-y-1">
-          <li>• Appareils photo autorisés (sans objectif détachable)</li>
-          <li>• Light sticks autorisés</li>
-          <li>• Pas de nourriture ni boissons de l'extérieur</li>
-          <li>• Bracelets phosphorescents fournis pour la sécurité nocturne</li>
-        </ul>
+      <div class="card bg-white shadow-sm">
+        <div class="card-body p-4">
+          <h3 class="card-title text-lg font-bold mb-2 text-pink-600">Règles importantes</h3>
+          <ul class="space-y-1 text-gray-700">
+            <li>• Appareils photo autorisés (sans objectif détachable)</li>
+            <li>• Light sticks autorisés</li>
+            <li>• Pas de nourriture ni boissons de l'extérieur</li>
+            <li>• Bracelets phosphorescents fournis pour la sécurité nocturne</li>
+          </ul>
+        </div>
       </div>
     </div>
 

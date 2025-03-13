@@ -27,7 +27,6 @@ interface InfoPratique {
 @Component({
   selector: 'app-programme',
   templateUrl: './programme.component.html',
-  styleUrls: ['./programme.component.css']
 })
 export class ProgrammeComponent implements OnInit {
   events: FestivalEvent[] = [];
@@ -625,7 +624,7 @@ export class ProgrammeComponent implements OnInit {
       case 'Reiwa':
         return 'bg-purple-200';
       case 'Kawaii Zone':
-        return 'bg-yellow-200';
+        return 'bg-orange-200';
       default:
         return 'bg-gray-200';
     }

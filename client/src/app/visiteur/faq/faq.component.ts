@@ -11,7 +11,11 @@ interface Partner {
   logo: string;
   website?: string;
 }
-
+interface socials {
+  name: string;
+  logo: string;
+  website?: string;
+}
 @Component({
   selector: 'app-faq',
   templateUrl: './faq.component.html',
@@ -44,6 +48,14 @@ export class FaqComponent implements OnInit {
     { name: 'Association Franco-Japonaise', logo: 'AssoFrJp.png', website: '#' }
   ];
 
+  socialNetworks: socials[] = [
+    {name: 'Facebook', logo: 'facebook.png', website:'#'},
+    {name: 'Instagram', logo: 'instagram.png', website:'#'},
+    {name: 'Youtube', logo: 'youtube.png', website:'#'},
+    {name: 'Twitter', logo: 'twitter.png', website:'#'},
+    {name: 'Twitch', logo: 'tic.png', website:'#'},
+    {name: 'Tiktok', logo: 'tictoc.png', website: '#'}
+  ]
   //Items Faq
   faqItems: FaqItem[] = [
     {
