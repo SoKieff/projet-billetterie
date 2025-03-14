@@ -4,3 +4,6 @@ publish = "client/dist/client/browser"
 
 [[plugins]]
 package = "@netlify/plugin-angular-universal"
+
+[plugins.inputs]
+projectName = "client"
