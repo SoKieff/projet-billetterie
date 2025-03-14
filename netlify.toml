@@ -1,7 +1,7 @@
 [build]
 command = "cd client && npm install && npm run build:ssr"
 commandOrigin = "config"
-publish = "/opt/build/repo/client/dist/client/browser"
+publish = "client/dist/client/browser"
 publishOrigin = "config"
 
 [[redirects]]
