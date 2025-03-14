@@ -1,5 +1,5 @@
 [build]
-command = "cd client && npm install && npx ng build && npx ng run client:server:production"
+command = "cd client && npm install && npm run build:ssr"
 publish = "client/dist/client/browser"
 
 [[redirects]]
