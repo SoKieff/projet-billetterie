@@ -2,8 +2,7 @@
 command = "cd client && npm run build:ssr"
 publish = "client/dist/client/browser"
 
-[[plugins]]
-package = "@netlify/plugin-angular-universal"
-
-[plugins.inputs]
-projectName = "client"
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
