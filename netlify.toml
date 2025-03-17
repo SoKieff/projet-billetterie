@@ -1,5 +1,5 @@
 [build]
-command = "cd client && npm install && npm run build:ssr"
+command = "cd client && npm install && npm run build"
 commandOrigin = "config"
 publish = "client/dist/client/browser"
 publishOrigin = "config"
