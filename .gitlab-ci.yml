@@ -1,33 +1,5 @@
+# The Docker image that will be used to build your app
 image: node:latest
-
-cache:
-  paths:
-    - client/node_modules/
-
-stages:
-  - build
-  - deploy
-
-build:
-  stage: build
-  script:
-    - cd client
-    - npm ci
-    - npm run build -- --base-href=/mspr-billeterie/
-  artifacts:
-    paths:
-      - client/dist/MSPR
-
-pages:
-  stage: deploy
-  dependencies:
-    - build
-  script:
-    - mkdir -p public
-    - cp -r client/dist/MSPR/* public/
-    - cp client/dist/MSPR/index.html public/404.html
-  artifacts:
-    paths:
-      - public
-  only:
-    - develop
+# Functions that should be executed before the build script is run
+before_script:
+  - npm ci
