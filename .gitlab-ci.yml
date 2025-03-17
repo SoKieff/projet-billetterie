@@ -16,7 +16,7 @@ build:
     - npm run build -- --base-href=/mspr-billeterie/
   artifacts:
     paths:
-      - client/dist/MSPR
+      - client/dist/MSPR/browser
 
 pages:
   stage: deploy
@@ -24,8 +24,8 @@ pages:
     - build
   script:
     - mkdir -p public
-    - cp -r client/dist/MSPR/* public/
-    - cp client/dist/MSPR/index.html public/404.html
+    - cp -r client/dist/MSPR/browser/* public/
+    - cp client/dist/MSPR/browser/index.html public/404.html
   artifacts:
     paths:
       - public
