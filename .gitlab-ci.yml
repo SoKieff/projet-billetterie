@@ -13,8 +13,7 @@ build:
   script:
     - cd client
     - npm ci
-    # Spécifier explicitement la configuration production et le baseHref
-    - npm run build -- --configuration production --base-href=/mspr-billeterie/
+    - npm run build -- --configuration production
   artifacts:
     paths:
       - client/dist/MSPR/browser
