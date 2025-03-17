@@ -1,11 +1,8 @@
 [build]
 command = "cd client && npm install && npm run build"
-commandOrigin = "config"
 publish = "client/dist/client/browser"
-publishOrigin = "config"
 
 [[redirects]]
 from = "/*"
 to = "/index.html"
 status = 200
-redirectsOrigin ="config"
