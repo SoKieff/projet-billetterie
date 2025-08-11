@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  graphql:
+    graphiql:
+      enabled: true
+      base-path: /graphiql
+    http:
+      path: /graphql
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/mspr-billeterie
+    username: postgres
+    password: postgres
+    default-schema: public
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changeLog/changelog-master.yaml
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none

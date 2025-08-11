@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: empty_state
+      author: Solveig
+      changes:
+          - tagDatabase:
+              tag: version_0.0
+  - include:
+      file: db/changeLog/migrations/changelog-init.yaml
