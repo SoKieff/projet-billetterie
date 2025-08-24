@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="mspr-billeterie">
+        <comment>Création des tables initiales</comment>
+
+        <createTable tableName="artiste">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nom" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="scene">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="evenement">
+            <column name="event_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="event_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_time" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_time" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="artiste_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="scene_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="evenement"
+                                baseColumnNames="artiste_id"
+                                referencedTableName="artiste"
+                                referencedColumnNames="id"
+                                constraintName="fk_evenement_artiste"/>
+
+        <addForeignKeyConstraint baseTableName="evenement"
+                                baseColumnNames="scene_id"
+                                referencedTableName="scene"
+                                referencedColumnNames="id"
+                                constraintName="fk_evenement_scene"/>
+    </changeSet>
+</databaseChangeLog>

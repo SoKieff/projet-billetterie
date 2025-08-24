@@ -2,22 +2,91 @@ databaseChangeLog:
   - changeSet:
       id: 1
       author: mspr-billeterie
-      comment: "Initial schema creation"
+      comment: "Création des tables initiales"
       changes:
         - createTable:
-            tableName: example_table
+            tableName: artiste
             columns:
               - column:
                   name: id
-                  type: BIGINT
+                  type: int
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: created_at
-                  type: TIMESTAMP
-                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: nom
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
                   constraints:
                     nullable: false
 
+        - createTable:
+            tableName: scene
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: evenement
+            columns:
+              - column:
+                  name: event_id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: event_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start_time
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_time
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: artiste_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: scene_id
+                  type: int
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: evenement
+            baseColumnNames: artiste_id
+            referencedTableName: artiste
+            referencedColumnNames: id
+            constraintName: fk_evenement_artiste
+
+        - addForeignKeyConstraint:
+            baseTableName: evenement
+            baseColumnNames: scene_id
+            referencedTableName: scene
+            referencedColumnNames: id
+            constraintName: fk_evenement_scene

@@ -1,0 +1,89 @@
+# ====================
+# SCALARS
+# ====================
+scalar DateTime
+@specifiedBy(url: "https://tools.ietf.org/html/rfc3339")
+
+# ====================
+# TYPES
+# ====================
+type Artiste {
+    id: Int!
+    nom: String!
+    description: String!
+    evenements: [Evenement!]
+}
+
+type Scene {
+    id: Int!
+    name: String!
+    evenements: [Evenement!]
+}
+
+type Evenement {
+    eventId: Int!
+    eventName: String!
+    startTime: DateTime!
+    endTime: DateTime!
+    artiste: Artiste!
+    scene: Scene!
+}
+
+# ====================
+# INPUTS
+# ====================
+input ArtisteInput {
+    nom: String!
+    description: String!
+}
+
+input SceneInput {
+    name: String!
+}
+
+input EvenementInput {
+    eventName: String!
+    startTime: DateTime!
+    endTime: DateTime!
+    artisteId: Int!
+    sceneId: Int!
+}
+
+# ====================
+# QUERIES
+# ====================
+type Query {
+    # Artistes
+    artistes: [Artiste!]!
+    artiste(id: Int!): Artiste
+
+    # Scenes
+    scenes: [Scene!]!
+    scene(id: Int!): Scene
+
+    # Evenements
+    evenements: [Evenement!]!
+    evenement(id: Int!): Evenement
+    evenementsByArtiste(artisteId: Int!): [Evenement!]!
+    evenementsByScene(sceneId: Int!): [Evenement!]!
+}
+
+# ====================
+# MUTATIONS
+# ====================
+type Mutation {
+    # Artiste mutations
+    createArtiste(input: ArtisteInput!): Artiste!
+    updateArtiste(id: Int!, input: ArtisteInput!): Artiste!
+    deleteArtiste(id: Int!): Boolean!
+
+    # Scene mutations
+    createScene(input: SceneInput!): Scene!
+    updateScene(id: Int!, input: SceneInput!): Scene!
+    deleteScene(id: Int!): Boolean!
+
+    # Evenement mutations
+    createEvenement(input: EvenementInput!): Evenement!
+    updateEvenement(id: Int!, input: EvenementInput!): Evenement!
+    deleteEvenement(id: Int!): Boolean!
+}
