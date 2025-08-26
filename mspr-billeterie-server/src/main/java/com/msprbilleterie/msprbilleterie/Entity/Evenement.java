@@ -16,7 +16,7 @@ public class Evenement {
     @Column(name = "event_id")
     private int eventId;
 
-    @Column(name = "event_name", nullable = false)
+    @Column(name = "event_name")
     private String eventName;
 
     @Column(nullable = false)
@@ -24,6 +24,16 @@ public class Evenement {
 
     @Column(nullable = false)
     private LocalDateTime endTime;
+
+    @Column(nullable = false)
+    private String description;
+
+    @Column(nullable = false)
+    private String longDescription;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private CategorieEvenement categorie;
 
     @ManyToOne
     @JoinColumn(name = "artiste_id", nullable = false)

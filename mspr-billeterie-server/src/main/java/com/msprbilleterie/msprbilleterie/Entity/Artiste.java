@@ -21,8 +21,11 @@ public class Artiste {
     @Column(nullable = false)
     private String nom;
 
-    @Column(nullable = false)
-    private String description;
+    @Column(name = "url_artist_image")
+    private String urlArtistImage;
+
+    @Column(name = "url_social_media")
+    private String urlSocialMedia;
 
     @OneToMany(mappedBy = "artiste")
     private List<Evenement> evenements;

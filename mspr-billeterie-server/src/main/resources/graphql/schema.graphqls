@@ -11,6 +11,8 @@ type Artiste {
     id: Int!
     nom: String!
     description: String!
+    urlArtistImage: String
+    urlSocialMedia: String
     evenements: [Evenement!]
 }
 
@@ -25,6 +27,7 @@ type Evenement {
     eventName: String!
     startTime: DateTime!
     endTime: DateTime!
+    description: String
     artiste: Artiste!
     scene: Scene!
 }
@@ -35,6 +38,8 @@ type Evenement {
 input ArtisteInput {
     nom: String!
     description: String!
+    urlArtistImage: String
+    urlSocialMedia: String
 }
 
 input SceneInput {
@@ -45,6 +50,7 @@ input EvenementInput {
     eventName: String!
     startTime: DateTime!
     endTime: DateTime!
+    description: String
     artisteId: Int!
     sceneId: Int!
 }

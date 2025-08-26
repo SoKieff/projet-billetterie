@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 1
-      author: mspr-billeterie
+      author: Solveig
       comment: "Création des tables initiales"
       changes:
         - createTable:
@@ -20,10 +20,15 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: description
+                  name: url_artist_image
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
+              - column:
+                  name: url_social_media
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
 
         - createTable:
             tableName: scene
@@ -54,8 +59,6 @@ databaseChangeLog:
               - column:
                   name: event_name
                   type: varchar(255)
-                  constraints:
-                    nullable: false
               - column:
                   name: start_time
                   type: datetime
@@ -64,6 +67,16 @@ databaseChangeLog:
               - column:
                   name: end_time
                   type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: longDescription
+                  type: text
                   constraints:
                     nullable: false
               - column:

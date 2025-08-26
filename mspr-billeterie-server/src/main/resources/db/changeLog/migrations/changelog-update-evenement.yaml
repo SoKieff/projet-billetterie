@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: Solveig
+      comment: "Modification de la table evenement - ajout de la colonne categorie"
+      changes:
+        - addColumn:
+            tableName: evenement
+            columns:
+              - column:
+                  name: categorie
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                  defaultValue: 'CONCERT'

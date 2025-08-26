@@ -7,3 +7,7 @@ databaseChangeLog:
               tag: version_0.0
   - include:
       file: db/changeLog/migrations/changelog-init.yaml
+  - include:
+      file: db/changeLog/migrations/changelog-update-evenement.yaml
+  - include:
+      file: db/changeLog/migrations/changelog-insert-data.yaml

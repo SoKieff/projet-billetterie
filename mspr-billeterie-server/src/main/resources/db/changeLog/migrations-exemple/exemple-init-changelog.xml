@@ -18,6 +18,12 @@
             <column name="description" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="url_artist_image" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="url_social_media" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
 
         <createTable tableName="scene">
@@ -41,6 +47,9 @@
             </column>
             <column name="end_time" type="DATETIME">
                 <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="true"/>
             </column>
             <column name="artiste_id" type="INT">
                 <constraints nullable="false"/>
