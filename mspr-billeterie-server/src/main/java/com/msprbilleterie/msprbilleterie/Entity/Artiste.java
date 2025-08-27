@@ -27,6 +27,9 @@ public class Artiste {
     @Column(name = "url_social_media")
     private String urlSocialMedia;
 
+    @Column(name = "biographie_complete", columnDefinition = "TEXT")
+    private String biographieComplete;
+
     @OneToMany(mappedBy = "artiste")
     private List<Evenement> evenements;
 

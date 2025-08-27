@@ -10,9 +10,9 @@ scalar DateTime
 type Artiste {
     id: Int!
     nom: String!
-    description: String!
     urlArtistImage: String
     urlSocialMedia: String
+    biographieComplete: String
     evenements: [Evenement!]
 }
 
@@ -27,9 +27,22 @@ type Evenement {
     eventName: String!
     startTime: DateTime!
     endTime: DateTime!
-    description: String
+    description: String!
+    longDescription: String!
+    categorie: CategorieEvenement!
     artiste: Artiste!
     scene: Scene!
+}
+
+enum CategorieEvenement {
+    CONCERT
+    DJ_SET
+    ATELIER
+    ANIMATION
+    SHOPPING
+    RENCONTRE
+    FOOD
+    CEREMONIE
 }
 
 # ====================
@@ -37,9 +50,9 @@ type Evenement {
 # ====================
 input ArtisteInput {
     nom: String!
-    description: String!
     urlArtistImage: String
     urlSocialMedia: String
+    biographieComplete: String
 }
 
 input SceneInput {
@@ -51,6 +64,8 @@ input EvenementInput {
     startTime: DateTime!
     endTime: DateTime!
     description: String
+    longDescription: String
+    categorie: CategorieEvenement!
     artisteId: Int!
     sceneId: Int!
 }

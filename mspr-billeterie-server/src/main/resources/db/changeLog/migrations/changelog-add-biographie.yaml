@@ -1,0 +1,187 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: Solveig
+      comment: "Ajout de la colonne biographie_complete à la table artiste"
+      changes:
+        - addColumn:
+            tableName: artiste
+            columns:
+              - column:
+                  name: biographie_complete
+                  type: TEXT
+                  constraints:
+                    nullable: true
+
+  - changeSet:
+      id: 5
+      author: Solveig
+      comment: "Ajout de données dans la colonne biographie_complete"
+      changes:
+        - update:
+            tableName: artiste
+            where: nom = 'Kodo'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "Kodo est un groupe de tambours taiko japonais fondé en 1981, basé sur l'île de Sado. Reconnus internationalement pour leur maîtrise exceptionnelle, leurs performances allient puissance physique, précision rythmique et expression artistique. Ils perpétuent et modernisent cette tradition ancestrale avec une dévotion et une discipline remarquables, explorant sans cesse de nouvelles frontières musicales tout en restant fidèles aux racines culturelles japonaises."
+
+        - update:
+            tableName: artiste
+            where: nom = 'CYBER SHRINE'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "CYBER SHRINE est un groupe de techno-folk japonais formé à Tokyo en 2017 par les frères Kenji et Ryu Matsuda. Leur musique unique fusionne des instruments traditionnels japonais comme le shamisen et le koto avec des synthétiseurs et des beats électroniques. Leur premier album 'Digital Ancestors' a atteint la 5ème place des charts japonais et leur a valu une nomination aux Asian Music Awards. Connus pour leurs performances visuellement spectaculaires, ils utilisent des projections mapping et des costumes futuristes inspirés de l'esthétique des temples shintoïstes. Leur dernier EP 'Neo Tokyo Spirits' explore les thèmes de la spiritualité dans l'ère numérique."
+
+        - update:
+            tableName: artiste
+            where: nom = 'NEON SAMURAI'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "NEON SAMURAI est un groupe de synthwave japonais fondé en 2016 par le producteur Akira Yamaguchi et la chanteuse Yumi Koda. Leur style musical mêle les influences rétro des années 80 avec des éléments de J-pop contemporaine et des rythmes électroniques pulsants. Avec trois albums studios à leur actif, dont le très acclamé 'Tokyo After Dark', ils se sont imposés comme des figures incontournables de la scène électronique underground japonaise. Leurs performances live sont réputées pour leur énergie contagieuse et leurs jeux de lumière LED synchronisés. Leur collaboration récente avec le célèbre compositeur de jeux vidéo Nobuo Uematsu a considérablement élargi leur audience internationale."
+
+        - update:
+            tableName: artiste
+            where: nom = 'PIXEL DREAMS'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "PIXEL DREAMS est un duo d'électro-pop formé en 2018 par la productrice Naoko Ishii et le multi-instrumentiste Daisuke Tanaka. Issus du milieu du jeu vidéo, ils créent une musique fortement influencée par les bandes sonores de jeux rétro, les chiptunes et la culture otaku. Leur approche minimaliste utilisant des synthétiseurs vintage et des vocodeurs leur a permis de se démarquer sur la scène musicale de Tokyo. Leur premier album 'Level Up' est rapidement devenu culte dans les cercles de gaming, tandis que leur dernier EP 'Save Point' a été utilisé pour la bande-son de plusieurs jeux indépendants populaires. Leurs concerts immersifs sont conçus comme des voyages interactifs à travers différents 'niveaux' musicaux, avec des visuels 8-bit projetés en arrière-plan."
+
+        - update:
+            tableName: artiste
+            where: nom = 'SAKURA STORM'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "SAKURA STORM est un groupe de rock alternatif japonais formé à Kyoto en 2012. Composé de Mei Tanaka (chant), Haruto Suzuki (guitare), Yuna Nakamura (basse) et Ren Kimura (batterie), le groupe est connu pour ses compositions énergiques mêlant des éléments de rock japonais, de punk et de metal progressif. Leurs paroles, souvent poétiques et introspectives, explorent des thèmes allant de l'identité culturelle japonaise à l'anxiété de la vie moderne. Après avoir conquis la scène underground avec leur EP 'Cherry Blossom Riot', ils ont signé avec un label majeur en 2019. Leur dernier album 'Petals & Thorns' a reçu les éloges de la critique pour son approche innovante et sa production impeccable. Sur scène, ils sont connus pour leurs performances intenses et la présence charismatique de leur chanteuse Mei."
+
+        - update:
+            tableName: artiste
+            where: nom = 'TOKYO PULSE'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "TOKYO PULSE est un collectif de DJs et producteurs électroniques formé en 2014 autour du visionnaire Ichiro Sato. Mélangeant house, techno et des éléments de musique traditionnelle japonaise, ils sont les pionniers de ce qu'on appelle maintenant la 'neo-Tokyo sound'. Leur résidence au célèbre club Womb de Tokyo est devenue légendaire, attirant des amateurs de musique électronique du monde entier. Leur album 'Metropolis Groove' a été classé parmi les 10 meilleurs albums électroniques de 2020 par DJ Mag. Le groupe collabore régulièrement avec des artistes visuels pour créer des expériences multisensorielles lors de leurs performances. Leur label, Tokyo Pulse Records, est devenu une plateforme importante pour les nouveaux talents de la scène électronique japonaise."
+
+        - update:
+            tableName: artiste
+            where: nom = 'MIDNIGHT DYNASTY'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "MIDNIGHT DYNASTY est un groupe de dark wave formé à Osaka en 2015. Composé de Takashi Mori (chant, synthétiseurs), Aiko Yamada (guitare, programmation) et Jun Saito (basse, percussions électroniques), le trio crée une musique atmosphérique et mélancolique inspirée du post-punk des années 80 et de la musique industrielle. Leur esthétique visuelle, fortement influencée par le cyberpunk japonais et l'imagerie traditionnelle revisitée, se reflète dans leurs clips stylisés et leurs pochettes d'albums élaborées. Leur premier album 'Neon Shadows' a fait sensation dans les milieux gothiques et électroniques, tandis que leur récent EP 'Imperial Circuit' explore des sonorités plus expérimentales. Leurs concerts sont connus pour leur ambiance immersive, avec des éclairages minimalistes et des projections vidéo hypnotiques."
+
+        - update:
+            tableName: artiste
+            where: nom = 'sakuranight cosplay'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "Sakuranight Cosplay est un collectif artistique fondé en 2016 par la designer Haruka Nakamura et le photographe Kenji Tanaka. Ce groupe rassemble 15 cosplayers professionnels spécialisés dans la recréation de personnages emblématiques d'anime, de jeux vidéo et de la culture pop japonaise. Leurs costumes, entièrement faits main, sont réputés pour leur niveau de détail exceptionnel et leur fidélité aux œuvres originales. Le collectif a remporté plusieurs prix internationaux, dont le Grand Prix du World Cosplay Summit 2019 à Nagoya. Ils organisent régulièrement des masterclass où ils partagent leurs techniques de création, de maquillage et de performance. Leur livre 'The Art of Cosplay' est devenu une référence dans le milieu, et leurs séances photos thématiques attirent des milliers de fans lors des conventions."
+
+        - update:
+            tableName: artiste
+            where: nom = 'TokyoTunes'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "TokyoTunes est le nom du plus célèbre karaoké du festival. Fondé par Hiro Tanaka en 2015, ce lieu emblématique propose plus de 10 000 chansons dans 6 langues différentes. L'équipe de TokyoTunes, composée de 15 musiciens professionnels, anime régulièrement des soirées à thème et des concours de chant. Leur spécialité est l'accompagnement live pour les participants les plus courageux. Chaque année, ils ajoutent environ 500 nouvelles chansons à leur répertoire, reflétant les dernières tendances musicales japonaises et internationales."
+
+        - update:
+            tableName: artiste
+            where: nom = 'KawaiiMart'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "KawaiiMart est une boutique emblématique fondée par les sœurs Yuki et Sakura Yamamoto en 2013. Spécialisée dans les produits kawaii, elle propose une collection unique d'articles mignons, colorés et exclusifs, allant des peluches aux accessoires. Leur design signature 'Happy Panda' est devenu un phénomène viral sur les réseaux sociaux. Chaque saison, elles collaborent avec des artistes émergents pour créer des collections limitées. Le stand du festival présente leurs dernières créations ainsi que des produits rares importés directement du Japon."
+
+        - update:
+            tableName: artiste
+            where: nom = 'DJ BLOSSOM'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "DJ BLOSSOM, de son vrai nom Sakura Nakamori, est une figure incontournable de la scène électronique japonaise depuis 2013. Née à Kyoto et formée au conservatoire de musique de Tokyo, elle a développé un style unique fusionnant EDM, future bass et des samples de musique traditionnelle japonaise. Son EP 'Hanami Beats' a été salué comme une révolution dans le domaine de la musique électronique japonaise, remportant le prix de la meilleure production électronique aux Japan Music Awards 2019. Ses sets sont caractérisés par des transitions fluides entre genres et des drops énergiques qui électrisent les foules. Elle a joué dans les plus grands festivals internationaux dont Tomorrowland et Ultra Japan. Sa résidence mensuelle au club Vision de Tokyo affiche complet des mois à l'avance. En parallèle de sa carrière musicale, elle gère le label Cherry Blossom Records qui promeut les jeunes talents féminins de la scène électronique asiatique."
+
+        - update:
+            tableName: artiste
+            where: nom = 'foodmarket'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "Le Food Market est un espace culinaire regroupant 25 stands de cuisine japonaise authentique. Créé par le chef Takeshi Nakamura, ancien étoilé Michelin, il met en avant la diversité gastronomique du Japon, des ramens traditionnels aux pâtisseries kawaii. Tous les ingrédients sont sélectionnés avec soin, certains étant directement importés du Japon. L'espace propose également des ateliers de cuisine, des démonstrations de techniques culinaires japonaises et des dégustations guidées. Un lieu incontournable pour découvrir toute la richesse de la cuisine nippone."
+
+        - update:
+            tableName: artiste
+            where: nom = 'RAINBOW VOLTAGE'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "RAINBOW VOLTAGE est un groupe de J-pop électronique formé en 2017 à Tokyo. Ce quatuor composé de Hina (chant), Yuki (synthétiseurs), Sota (guitare/production) et Kenta (batterie électronique) s'est fait connaître avec leur single viral 'Electric Dreams' qui a cumulé plus de 50 millions de vues sur YouTube. Leur musique colorée et énergique mêle des mélodies pop accrocheuses à des productions électroniques sophistiquées, créant un son immédiatement reconnaissable. Leur image de marque, basée sur un code couleur où chaque membre représente une couleur différente de l'arc-en-ciel, a donné naissance à une ligne de merchandising très populaire. Leur album 'Spectrum' a dominé les charts japonais pendant huit semaines consécutives en 2020. Connus pour leurs performances scéniques élaborées incluant des chorégraphies synchronisées et des effets visuels spectaculaires, ils ont vendu tous les billets de leur première tournée nationale en moins de 24 heures."
+
+        - update:
+            tableName: artiste
+            where: nom = 'QUANTUM BEATS'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "QUANTUM BEATS est un duo d'électro-jazz expérimental formé en 2016 par le pianiste Hiroshi Yamamoto et le producteur électronique Takeshi Nakajima. Leur approche avant-gardiste fusionne le jazz improvisé avec des productions électroniques complexes inspirées de l'IDM et du glitch. Diplômés de la prestigieuse école de musique de Berklee, les deux artistes apportent une rigueur technique impressionnante à leurs compositions. Leur premier album 'Superposition' a été acclamé par la critique internationale, le magazine Wire le décrivant comme 'une révolution dans la fusion des genres'. Leur processus créatif unique implique l'utilisation d'algorithmes générés par ordinateur qui réagissent en temps réel à leur jeu instrumental, créant ainsi une symbiose entre l'humain et la machine. Leurs performances live sont des expériences immersives où l'improvisation côtoie la précision algorithmique, attirant aussi bien les amateurs de jazz que les passionnés de musique électronique expérimentale."
+
+        - update:
+            tableName: artiste
+            where: nom = 'LUNAR ECHO'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "LUNAR ECHO est un groupe de dream pop ambient fondé en 2015 par la chanteuse et compositrice Mizuki Tanaka. Son approche éthérée et contemplative crée des paysages sonores envoûtants où sa voix cristalline flotte au-dessus de synthétiseurs atmosphériques et de guitares aux effets réverbérés. Après des débuts remarqués sur la scène indépendante de Tokyo, son premier album 'Moonlight Whispers' a attiré l'attention internationale, notamment grâce à son utilisation innovante de field recordings capturés pendant les phases de la lune. Ses compositions, inspirées tant par la musique minimaliste japonaise que par le shoegaze occidental, explorent les thèmes de la solitude urbaine, des rêves et de la connexion avec la nature. En concert, Mizuki crée une expérience méditative, accompagnée de projections visuelles célestes et d'éclairages subtils qui suivent les dynamiques de sa musique. Son EP récent 'Tides of Light' a été utilisé comme bande sonore pour plusieurs installations artistiques au Japon et à l'étranger."
+
+        - update:
+            tableName: artiste
+            where: nom = 'DIGITAL SHOGUN'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "DIGITAL SHOGUN est un producteur et DJ de bass music né à Osaka en 1990. Pionnier de la trap japonaise, il a révolutionné la scène électronique nippone en fusionnant des basses lourdes et des rythmiques trap avec des samples d'instruments traditionnels japonais et des références à la culture des samouraïs. Son approche musicale agressive et innovante lui a valu une reconnaissance internationale, avec des collaborations prestigieuses aux côtés d'artistes comme Skrillex et What So Not. Son EP 'Neo Bushido' a dominé les charts de bass music et ses remix sont régulièrement joués dans les plus grands festivals. En tant que fondateur du label Empire Bass, il a contribué à mettre en lumière une nouvelle génération de producteurs japonais. Ses performances sont connues pour leur intensité sans compromis et ses drops dévastateurs qui transforment instantanément n'importe quelle salle en zone de mosh pit frénétique. Son studio est réputé pour contenir l'une des plus grandes collections de synthétiseurs analogiques du Japon."
+
+        - update:
+            tableName: artiste
+            where: nom = 'CRYSTAL NOISE'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "CRYSTAL NOISE est un groupe de post-rock expérimental formé à Sapporo en 2014. Ce trio instrumental composé de Yuki Ishikawa (guitare), Hana Kobayashi (basse) et Ryo Matsumoto (batterie) crée des compositions atmosphériques et cinématiques qui évoluent de passages contemplatifs à des explosions sonores cataclysmiques. Inspirés tant par la nature sauvage d'Hokkaido que par l'urbanisme futuriste japonais, ils ont développé un son distinctif caractérisé par des guitares cristallines traitées avec de multiples effets, des lignes de basse profondes et une batterie dynamique oscillant entre délicatesse et puissance. Leur album concept 'Frozen Symmetry' a été enregistré dans une grotte de glace pour capturer une acoustique naturelle unique. Leurs performances live sont accompagnées d'installations artistiques et de projections vidéo soigneusement synchronisées avec leur musique. Malgré leur approche résolument expérimentale, ils ont réussi à toucher un public international, effectuant des tournées en Asie et en Europe où leur musique transcende les barrières linguistiques."
+
+        - update:
+            tableName: artiste
+            where: nom = 'ETERNAL WAVE'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "ETERNAL WAVE est un groupe de shoegaze/dream pop formé à Tokyo en 2013. Mené par le charismatique guitariste et chanteur Kazuki Honda, le groupe s'est forgé une réputation grâce à leurs murs de son enveloppants et leurs mélodies nostalgiques noyées dans la réverbération. Leur premier album 'Drowning in Light' est rapidement devenu un classique culte dans les cercles de shoegaze japonais. Leur son, influencé autant par My Bloody Valentine que par les compositeurs de musique ambient japonais comme Hiroshi Yoshimura, se caractérise par des couches de guitares densément traitées, des voix éthérées et des rythmiques hypnotiques. Leur processus créatif implique souvent des sessions d'enregistrement marathon où ils jouent les mêmes progressions pendant des heures pour atteindre un état de transe musicale. Sur scène, le groupe privilégie les salles intimistes où ils peuvent créer une immersion sonore totale, souvent avec un volume assourdissant qui transforme leur musique en expérience physique. Leur dernier album 'Infinite Reflections' a été classé parmi les 50 meilleurs albums de l'année par Pitchfork."
+
+        - update:
+            tableName: artiste
+            where: nom = 'harajuku fashion fest'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "Le Harajuku Fashion Fest est un collectif créatif fondé en 2017 par la styliste visionnaire Yumi Harada. Ce groupe rassemble 12 designers, maquilleurs et modèles qui représentent l'avant-garde de la mode japonaise contemporaine. Leurs défilés-performances fusionnent mode, danse et installation artistique pour créer des expériences immersives uniques. Chaque collection explore un aspect différent de la culture japonaise, des styles traditionnels aux sous-cultures urbaines les plus excentriques comme le Decora, le Lolita ou le Visual Kei. Leurs créations ont été présentées dans des magazines internationaux comme Vogue Japan et i-D. Le collectif est également connu pour son engagement environnemental, utilisant uniquement des matériaux recyclés ou éthiques, et pour son approche inclusive qui célèbre la diversité des corps et des identités. Leur atelier situé au cœur de Harajuku est devenu un lieu de pèlerinage pour les passionnés de mode du monde entier. Pendant le festival, ils proposent non seulement des défilés spectaculaires mais aussi des ateliers de customisation et des sessions de stylisme personnalisé."
+
+        - update:
+            tableName: artiste
+            where: nom = 'purikura booth'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "Le Purikura Booth est un concept innovant inspiré des cabines photo japonaises, créé par la startup TokyoTech en 2018. Ces cabines high-tech offrent une expérience photographique unique avec plus de 100 filtres et effets spéciaux, permettant de personnaliser entièrement vos portraits. L'équipe de développement, composée de 8 ingénieurs et designers, actualise les filtres chaque mois en fonction des tendances. La technologie exclusive de reconnaissance faciale permet des retouches instantanées et des effets adaptés à chaque visage. Une application mobile permet ensuite de récupérer, partager et commander des impressions des photos réalisées."
+
+        - update:
+            tableName: artiste
+            where: nom = 'rencontre'
+            columns:
+              - column:
+                  name: biographie_complete
+                  value: "L'espace Rencontre est un concept unique créé par la sociologue Aiko Tanaka, offrant aux festivaliers l'opportunité de découvrir la culture japonaise à travers des échanges directs avec des artistes, artisans et experts venus tout droit du Japon. Inauguré en 2019, cet espace a déjà accueilli plus de 50 personnalités japonaises de renom. Les sessions de questions-réponses sont traduites simultanément et enregistrées pour constituer une archive culturelle unique. Un programme de mentorat permet également aux jeunes talents français de bénéficier des conseils d'experts japonais dans leur domaine."
