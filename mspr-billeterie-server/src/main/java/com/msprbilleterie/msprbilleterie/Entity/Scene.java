@@ -19,7 +19,7 @@ public class Scene {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "scene")
+    @OneToMany(mappedBy = "scene", fetch = FetchType.LAZY)
     private List<Evenement> evenements;
 
 }

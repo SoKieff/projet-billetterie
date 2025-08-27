@@ -13,13 +13,11 @@ type Artiste {
     urlArtistImage: String
     urlSocialMedia: String
     biographieComplete: String
-    evenements: [Evenement!]
 }
 
 type Scene {
     id: Int!
     name: String!
-    evenements: [Evenement!]
 }
 
 type Evenement {
@@ -74,37 +72,10 @@ input EvenementInput {
 # QUERIES
 # ====================
 type Query {
-    # Artistes
-    artistes: [Artiste!]!
-    artiste(id: Int!): Artiste
-
-    # Scenes
-    scenes: [Scene!]!
-    scene(id: Int!): Scene
-
     # Evenements
-    evenements: [Evenement!]!
-    evenement(id: Int!): Evenement
-    evenementsByArtiste(artisteId: Int!): [Evenement!]!
-    evenementsByScene(sceneId: Int!): [Evenement!]!
+    getAllEvent: [Evenement!]!
 }
 
 # ====================
 # MUTATIONS
 # ====================
-type Mutation {
-    # Artiste mutations
-    createArtiste(input: ArtisteInput!): Artiste!
-    updateArtiste(id: Int!, input: ArtisteInput!): Artiste!
-    deleteArtiste(id: Int!): Boolean!
-
-    # Scene mutations
-    createScene(input: SceneInput!): Scene!
-    updateScene(id: Int!, input: SceneInput!): Scene!
-    deleteScene(id: Int!): Boolean!
-
-    # Evenement mutations
-    createEvenement(input: EvenementInput!): Evenement!
-    updateEvenement(id: Int!, input: EvenementInput!): Evenement!
-    deleteEvenement(id: Int!): Boolean!
-}

@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import java.util.List;
 
-
 @Getter
 @Setter
 @Entity
@@ -30,7 +29,7 @@ public class Artiste {
     @Column(name = "biographie_complete", columnDefinition = "TEXT")
     private String biographieComplete;
 
-    @OneToMany(mappedBy = "artiste")
+    @OneToMany(mappedBy = "artiste", fetch = FetchType.LAZY)
     private List<Evenement> evenements;
 
 }
