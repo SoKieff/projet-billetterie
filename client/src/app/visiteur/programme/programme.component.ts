@@ -1,4 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import {gql} from "apollo-angular";
+
+gql`
+  query queryEvents {
+    getAllEvent {
+      artiste {
+        nom
+        urlArtistImage
+        urlSocialMedia
+      }
+      categorie
+      description
+      endTime
+      eventName
+      longDescription
+      startTime
+      scene {
+        name
+      }
+    }
+  }
+`
 
 interface FestivalEvent {
   id: number;

@@ -1,8 +1,7 @@
 # ====================
 # SCALARS
 # ====================
-scalar DateTime
-@specifiedBy(url: "https://tools.ietf.org/html/rfc3339")
+scalar LocalDateTime
 
 # ====================
 # TYPES
@@ -22,9 +21,9 @@ type Scene {
 
 type Evenement {
     eventId: Int!
-    eventName: String!
-    startTime: DateTime!
-    endTime: DateTime!
+    eventName: String
+    startTime: LocalDateTime!
+    endTime: LocalDateTime!
     description: String!
     longDescription: String!
     categorie: CategorieEvenement!
@@ -59,8 +58,8 @@ input SceneInput {
 
 input EvenementInput {
     eventName: String!
-    startTime: DateTime!
-    endTime: DateTime!
+    startTime: LocalDateTime!
+    endTime: LocalDateTime!
     description: String
     longDescription: String
     categorie: CategorieEvenement!

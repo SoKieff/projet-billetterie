@@ -10,6 +10,7 @@ import { MainLayoutComponent } from './core/main-layout/main-layout.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { NavigationComponent } from './core/navigation/navigation.component';
 import {PageNotFoundComponent} from "./core/page-not-found/page-not-found.component";
+import { GraphQLModule } from './graphql.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {PageNotFoundComponent} from "./core/page-not-found/page-not-found.compon
     BrowserModule,
     FormsModule,
     VisiteurModule,
-    AppRoutingModule
+    AppRoutingModule,
+    GraphQLModule
   ],
   providers: [
     provideClientHydration()

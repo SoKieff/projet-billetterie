@@ -1,0 +1,34 @@
+# On réécrit les fichiers à chaque génération
+overwrite: true
+# URL vers votre schéma GraphQL (c'est le schéma qui sera utilisé pour la génération de votre schéma)
+schema: http://localhost:8080/graphql
+# Fichiers à analyser et qui seront pris en compte pour la génération de code. Ici, on analyse tous les
+# fichiers en .ts qui ne s'appellent pas graphql-generated, pour éviter que la génération de code
+# regénére du code à partir du code généré...
+documents: './src/**/!(graphql-generated).ts'
+config:
+  apolloAngularVersion: 2
+generates:
+  # Cette clé indique ce que l'on va souhaiter générer dans le fichier. Nous conseillons de réaliser
+  # toute la génération de code au sein d'un même fichier. Il est possible de venir générer les
+  # fichiers correspondant aux types associés à chaque opération dans les dossiers des composants,
+  # mais cela vient polluer votre projet et affiche des changes dans git qui ne sont pas pertinent
+  # lors de la review (par exemple).
+  ./src/generated/graphql-generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-apollo-angular
+    config:
+      # permet au code de compiler en typescript v4.3+
+      addExplicitOverride: true
+      # Conserve les types des fragments dans vos opérations (permet par exemple de construire des
+      # shared components sur ces types qui seront retournés par différentes opérations)
+      inlineFragmentTypes: combine
+      # Ajoute un suffix sur les query pour éviter les confusions sur les types
+      querySuffix: QueryGQL
+      # Ajoute un suffix sur les mutations pour éviter les confusions sur les types
+      mutationSuffix: MutationGQL
+      namingConvention:
+        # Conserve les valeurs des enums telles que présentes dans le schéma GraphQL de l'API
+        enumValues: keep

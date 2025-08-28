@@ -1,6 +1,5 @@
 package com.msprbilleterie.msprbilleterie.config;
 
-import graphql.scalars.ExtendedScalars;
 import org.springframework.boot.autoconfigure.graphql.GraphQlSourceBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +11,6 @@ public class GraphQLConfig {
     public GraphQlSourceBuilderCustomizer sourceBuilderCustomizer() {
         return (graphQlSourceBuilder) -> graphQlSourceBuilder
                 .configureRuntimeWiring((wiringBuilder) -> wiringBuilder
-                        .scalar(ExtendedScalars.DateTime));
+                        .scalar(GraphQLLocalDateTime.INSTANCE));
     }
 }
