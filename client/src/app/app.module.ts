@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { VisiteurModule } from './visiteur/visiteur.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -26,7 +27,8 @@ import { GraphQLModule } from './graphql.module';
     FormsModule,
     VisiteurModule,
     AppRoutingModule,
-    GraphQLModule
+    GraphQLModule,
+    HttpClientModule
   ],
   providers: [
     provideClientHydration()
