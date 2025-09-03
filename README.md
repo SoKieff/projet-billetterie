@@ -1,154 +1,208 @@
 # MSPR - Billeterie
 
-# Projet Festival - Application Web
+<div align="center">
+  <img src="https://your-logo-url.com" alt="Logo Festival Nation Sound" width="200"/>
+</div>
+
+[![Build](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/...)  
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+## Table des matières
+
+- [Description](#description)
+- [Technologies utilisées](#technologies-utilisées)
+- [Prérequis](#prérequis)
+- [Installation](#installation)
+- [Configuration de la base de données](#configuration-de-la-base-de-données)
+- [Structure du projet](#structure-du-projet)
+- [API GraphQL](#api-graphql)
+- [Configuration de la carte](#configuration-de-la-carte)
+- [Build de production](#build-de-production)
+- [Déploiement](#déploiement)
+- [Tests](#tests)
+- [Contribution](#contribution)
+- [Contact](#contact)
+- [Licence](#licence)
+
+---
 
 ## Description
-Cette application web a été développée pour le festival "Festival Nation Sound". Elle permet aux visiteurs de consulter le programme, de localiser les différentes scènes et stands sur une carte interactive, et d'obtenir toutes les informations pratiques nécessaires pour profiter pleinement de l'événement.
+
+Application web pour le festival **Festival Nation Sound**.  
+Fonctionnalités principales :
+- Consultation du programme
+- Carte interactive des scènes et stands
+- Informations pratiques pour les visiteurs
+
+---
 
 ## Technologies utilisées
 
-### Frontend
+**Frontend**
 - Angular 17+
-- OpenLayers (pour la cartographie interactive)
+- OpenLayers (cartographie interactive)
 - TypeScript
 - HTML/CSS
 - Apollo GraphQL Client
 
-### Backend
+**Backend**
 - Java 17
 - Spring Boot 3
 - GraphQL
 - PostgreSQL
-- Liquibase (pour la gestion des migrations de base de données)
+- Liquibase (migrations)
 - Maven
 
+---
+
 ## Prérequis
-- Node.js (version 18.x ou supérieure recommandée)
-- npm (version 9.x ou supérieure)
+
+- Node.js >= 18.x
+- npm >= 9.x
 - Angular CLI (dernière version)
 - Java JDK 17
 - Maven
 - PostgreSQL
 
+---
+
 ## Installation
 
 ### Frontend
 
-1. Accéder au dossier client
 ```bash
 cd client
-```
-
-2. Installer les dépendances
-```bash
 npm install
-```
-
-3. Lancer l'application en mode développement
-```bash
 ng serve
 ```
-
-4. Accéder à l'application sur http://localhost:4200
+Application accessible sur [http://localhost:4200](http://localhost:4200).
 
 ### Backend
 
-1. Accéder au dossier du serveur
 ```bash
 cd mspr-billeterie-server
-```
-
-2. Compiler le projet
-```bash
 mvn clean install
-```
-
-3. Lancer le serveur
-```bash
 mvn spring-boot:run
 ```
+API accessible sur [http://localhost:8080](http://localhost:8080).
 
-Le serveur sera accessible sur http://localhost:8080
+---
 
 ## Configuration de la base de données
 
-1. Créer une base de données PostgreSQL
-2. Mettre à jour les informations de connexion dans `mspr-billeterie-server/src/main/resources/application.yaml`
-3. Les migrations Liquibase s'exécuteront automatiquement au démarrage
+1. Créez une base PostgreSQL.
+2. Modifiez `mspr-billeterie-server/src/main/resources/application.yaml` avec vos accès :
+   ```yaml
+   spring:
+     datasource:
+       url: jdbc:postgresql://localhost:5432/nom_de_votre_bdd
+       username: votre_username
+       password: votre_motdepasse
+   ```
+3. Les migrations Liquibase s’exécutent automatiquement au démarrage.
+
+---
+
+## Structure du projet
+
+```
+client/
+  src/app/components/  # Composants Angular
+  src/app/services/    # Services
+  src/app/models/      # Modèles de données
+  src/assets/          # Statique
+
+mspr-billeterie-server/
+  src/main/java/       # Backend Java
+  src/main/resources/graphql/    # Schémas GraphQL
+  src/main/resources/db/changelog/  # Migrations Liquibase
+  src/test/            # Tests
+```
+
+---
+
+## API GraphQL
+
+- Endpoint : `/graphql`
+- Documentation : `/graphiql` (mode dev)
+
+---
+
+## Configuration de la carte
+
+- OpenLayers : fichiers de configuration dans les composants map.
+- Données géographiques : modifiables dans les fichiers GeoJSON du projet.
+
+---
 
 ## Build de production
 
 ### Frontend
+
 ```bash
 cd client
 ng build --configuration production
 ```
-
-Les fichiers générés seront disponibles dans le dossier `dist/client`.
+Fichiers dans `dist/client`.
 
 ### Backend
+
 ```bash
 cd mspr-billeterie-server
 mvn clean package
 ```
-
-Le fichier JAR sera généré dans le dossier `target`.
-
-## Structure du projet
-
-### Frontend
-- `client/src/app/components` : Composants Angular
-- `client/src/app/services` : Services pour la gestion des données
-- `client/src/app/models` : Interfaces et modèles de données
-- `client/src/assets` : Ressources statiques
-
-### Backend
-- `mspr-billeterie-server/src/main/java` : Code source Java
-- `mspr-billeterie-server/src/main/resources/graphql` : Schémas GraphQL
-- `mspr-billeterie-server/src/main/resources/db/changelog` : Scripts de migration Liquibase
-- `mspr-billeterie-server/src/test` : Tests unitaires et d'intégration
-
-## API GraphQL
-
-Le backend expose une API GraphQL accessible à l'URL `/graphql`. La documentation de l'API peut être consultée via GraphiQL à l'URL `/graphiql` lorsque le serveur est en mode développement.
-
-## Configuration de la carte
-
-La carte interactive utilise OpenLayers. Les configurations principales se trouvent dans les fichiers correspondants des composants map. Les données géographiques peuvent être modifiées dans les fichiers GeoJSON.
-
-## Déploiement
-
-### Frontend
-L'application est configurée pour le Server-Side Rendering (SSR) :
-
-1. Générer la version de production
-```bash
-ng build --configuration production
-```
-
-2. Déployer les fichiers du dossier `dist/client`
-
-### Backend
-1. Construire le JAR
-```bash
-mvn clean package
-```
-
-2. Déployer le JAR avec la configuration appropriée
-
-## Contribution
-
-1. Fork le projet
-2. Créer une branche (`git checkout -b feature/nouvelle-fonctionnalite`)
-3. Commit les changements (`git commit -m 'Ajout d'une nouvelle fonctionnalité'`)
-4. Push vers la branche (`git push origin feature/nouvelle-fonctionnalite`)
-5. Créer une Pull Request
-
-
-## Contact
-
-Solveig Kieffer
+JAR généré dans `target/`.
 
 ---
 
+## Déploiement
+
+- **Frontend** : Déployer le contenu de `dist/client` sur votre serveur web.
+- **Backend** : Déployer le JAR avec la configuration adaptée.
+
+---
+
+## Tests
+
+### Frontend
+```bash
+ng test
+```
+### Backend
+```bash
+mvn test
+```
+
+---
+
+## Contribution
+
+1. Forkez le projet.
+2. Créez une branche :
+   ```sh
+   git checkout -b feature/ma-fonctionnalite
+   ```
+3. Commitez vos changements :
+   ```sh
+   git commit -m "feat: ajout d'une nouvelle fonctionnalité"
+   ```
+4. Pushez votre branche :
+   ```sh
+   git push origin feature/ma-fonctionnalite
+   ```
+5. Ouvrez une Pull Request.
+
+Merci de respecter le style de code et d’ajouter des tests pour toute nouvelle fonctionnalité.
+
+---
+
+## Contact
+
+Solveig Kieffer  
 Développé pour [EPSI]
+
+---
+
+## Licence
+
+Ce projet est sous licence MIT.
