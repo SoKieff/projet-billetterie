@@ -49,7 +49,7 @@ public class MsprBilleterieApplication {
 		configuration.setAllowedOrigins(List.of(
 			"http://localhost:4200",
 			"http://localhost:9090",
-			"https://projet-billetterie-production.up.railway.app"
+			"https://exciting-nature-production-b3f5.up.railway.app"
 		));
 		configuration.setAllowedHeaders(List.of("*"));
 		configuration.setAllowedMethods(List.of("GET", "POST", "OPTIONS"));
