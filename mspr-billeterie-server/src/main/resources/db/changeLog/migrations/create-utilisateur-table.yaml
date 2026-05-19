@@ -34,7 +34,7 @@ databaseChangeLog:
   - changeSet:
       id: insert-admin-utilisateur
       author: Copilot
-      comment: "Insertion de l'utilisateur admin par défaut (password: admin123)"
+      comment: "Insertion de l'utilisateur admin par défaut - changer le mot de passe en production"
       changes:
         - insert:
             tableName: utilisateur
