@@ -11,7 +11,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
@@ -39,16 +38,21 @@ public class MsprBilleterieApplication {
 
 	/**
 	 * Configuration de la source de configuration CORS.
+	 * Seules les origines autorisées peuvent accéder à l'API.
 	 *
 	 * @return la source de configuration CORS
 	 */
 	@SneakyThrows
 	public CorsConfigurationSource corsConfiguration() {
 		var configuration = new CorsConfiguration();
-		configuration.setAllowCredentials(true);
-		configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:[4200,9090]", "*"));
-		configuration.setAllowedHeaders(List.of("*"));
-		configuration.setAllowedMethods(List.of("*"));
+		configuration.setAllowCredentials(false);
+		configuration.setAllowedOrigins(List.of(
+			"http://localhost:4200",
+			"http://localhost:9090",
+			"${ALLOWED_ORIGIN:https://projet-billetterie-production.up.railway.app}"
+		));
+		configuration.setAllowedHeaders(List.of("Content-Type", "Authorization"));
+		configuration.setAllowedMethods(List.of("GET", "POST", "OPTIONS"));
 		var source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
