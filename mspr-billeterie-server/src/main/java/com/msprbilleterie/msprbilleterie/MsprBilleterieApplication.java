@@ -38,20 +38,20 @@ public class MsprBilleterieApplication {
 
 	/**
 	 * Configuration de la source de configuration CORS.
-	 * Seules les origines autorisées peuvent accéder à l'API.
+	 * Seules les origines connues (localhost dev + frontend production) sont autorisées.
 	 *
 	 * @return la source de configuration CORS
 	 */
 	@SneakyThrows
 	public CorsConfigurationSource corsConfiguration() {
 		var configuration = new CorsConfiguration();
-		configuration.setAllowCredentials(false);
+		configuration.setAllowCredentials(true);
 		configuration.setAllowedOrigins(List.of(
 			"http://localhost:4200",
 			"http://localhost:9090",
-			"${ALLOWED_ORIGIN:https://projet-billetterie-production.up.railway.app}"
+			"https://projet-billetterie-production.up.railway.app"
 		));
-		configuration.setAllowedHeaders(List.of("Content-Type", "Authorization"));
+		configuration.setAllowedHeaders(List.of("*"));
 		configuration.setAllowedMethods(List.of("GET", "POST", "OPTIONS"));
 		var source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
