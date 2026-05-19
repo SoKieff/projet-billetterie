@@ -21,3 +21,8 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: none
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:dW5lLWNsZWYtc2VjcmV0ZS1kZS0yNTYtYml0cy1taW5pbXVtLXBvdXItaHMyNTY=}
+    expiration: 86400000 # 24h en ms

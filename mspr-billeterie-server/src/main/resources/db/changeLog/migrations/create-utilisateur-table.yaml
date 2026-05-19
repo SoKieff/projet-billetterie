@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-utilisateur-table
+      author: Copilot
+      comment: "Création de la table utilisateur pour l'authentification JWT"
+      changes:
+        - createTable:
+            tableName: utilisateur
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: insert-admin-utilisateur
+      author: Copilot
+      comment: "Insertion de l'utilisateur admin par défaut (password: admin123)"
+      changes:
+        - insert:
+            tableName: utilisateur
+            columns:
+              - column:
+                  name: username
+                  value: admin
+              - column:
+                  name: password
+                  value: "$2a$10$YsRuODBQ4XmFYt2X5PwphOfmLDVya551R8wrAZr7qo/u2rtOWYZWi"
+              - column:
+                  name: role
+                  value: ROLE_ADMIN

@@ -13,3 +13,5 @@ databaseChangeLog:
       file: db/changeLog/migrations/changelog-insert-data.yaml
   - include:
       file: db/changeLog/migrations/changelog-add-biographie.yaml
+  - include:
+      file: db/changeLog/migrations/create-utilisateur-table.yaml
