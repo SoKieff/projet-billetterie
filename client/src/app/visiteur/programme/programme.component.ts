@@ -115,7 +115,7 @@ export class ProgrammeComponent implements OnInit {
       day: this.determineDay(event.startTime),
       name: event.eventName || event.artist?.nom || 'Événement sans nom',
       description: event.description || 'Aucune description',
-      artistName: event.artiste?.nom ||'Nom inconnu',
+      artistName: event.artist?.nom ||'Nom inconnu',
       startTime: this.formatTime(event.startTime),
       endTime: this.formatTime(event.endTime),
       scene: this.mapSceneName(event.scene?.name),
@@ -185,7 +185,7 @@ export class ProgrammeComponent implements OnInit {
       const searchLower = this.filter.search.toLowerCase();
       result = result.filter(event =>
         event.name.toLowerCase().includes(searchLower) ||
-        event.description.toLowerCase().includes(searchLower)
+        event.description.toLowerCase().includes(searchLower) ||
         (event.artistName?.toLowerCase().includes(searchLower) ?? false)
       );
     }
