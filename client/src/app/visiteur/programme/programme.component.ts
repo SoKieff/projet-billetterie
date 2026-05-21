@@ -113,9 +113,9 @@ export class ProgrammeComponent implements OnInit {
     return backendEvents.map((event) => ({
       id: event.eventId,
       day: this.determineDay(event.startTime),
-      name: event.eventName || event.artist?.nom || 'Événement sans nom',
+      name: event.eventName || event.artiste?.nom || 'Événement sans nom',
       description: event.description || 'Aucune description',
-      artistName: event.artist?.nom ||'Nom inconnu',
+      artistName: event.artiste?.nom ||'Nom inconnu',
       startTime: this.formatTime(event.startTime),
       endTime: this.formatTime(event.endTime),
       scene: this.mapSceneName(event.scene?.name),
