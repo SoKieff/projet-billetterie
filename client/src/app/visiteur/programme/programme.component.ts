@@ -115,7 +115,7 @@ export class ProgrammeComponent implements OnInit {
       day: this.determineDay(event.startTime),
       name: event.eventName || event.artist?.nom || 'Événement sans nom',
       description: event.description || 'Aucune description',
-      artistName: event.artiste?.nom ||
+      artistName: event.artiste?.nom ||'Nom inconnu',
       startTime: this.formatTime(event.startTime),
       endTime: this.formatTime(event.endTime),
       scene: this.mapSceneName(event.scene?.name),
