@@ -11,6 +11,7 @@ interface FestivalEvent {
   scene: 'Heisei' | 'Reiwa' | 'Kawaii Zone';
   category: 'concert' | 'dj set' | 'atelier' | 'animation' | 'shopping' | 'rencontre' | 'food' | 'cérémonie';
   longDescription?: string;
+  artistName?: string;
   artistImage?: string;
   socialLinks?: { platform: string; url: string }[];
   videoUrl?: string;
@@ -112,8 +113,9 @@ export class ProgrammeComponent implements OnInit {
     return backendEvents.map((event) => ({
       id: event.eventId,
       day: this.determineDay(event.startTime),
-      name: event.eventName || 'Événement sans nom',
+      name: event.eventName || event.artist?.nom || 'Événement sans nom',
       description: event.description || 'Aucune description',
+      artistName: event.artiste?.nom ||
       startTime: this.formatTime(event.startTime),
       endTime: this.formatTime(event.endTime),
       scene: this.mapSceneName(event.scene?.name),
@@ -184,6 +186,7 @@ export class ProgrammeComponent implements OnInit {
       result = result.filter(event =>
         event.name.toLowerCase().includes(searchLower) ||
         event.description.toLowerCase().includes(searchLower)
+        (event.artistName?.toLowerCase().includes(searchLower) ?? false)
       );
     }
 
